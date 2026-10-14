@@ -33,9 +33,9 @@ export default function Loans({ loans, employees }) {
                 <Td className="font-semibold">Rs. {Number(l.amount).toLocaleString()}</Td>
                 <Td>{l.installments}</Td>
                 <Td>Rs. {Number(l.monthly_deduction).toLocaleString()}</Td>
-                <Td><span className={l.remaining_amount > 0 ? 'text-red-600 font-medium' : 'text-green-600'}>Rs. {Number(l.remaining_amount).toLocaleString()}</span></Td>
+                <Td><span className={l.remaining_amount > 0 ? 'text-blue-600 font-medium' : 'text-blue-600'}>Rs. {Number(l.remaining_amount).toLocaleString()}</span></Td>
                 <Td><Badge status={l.status}/></Td>
-                <Td>{l.status === 'pending' && <button onClick={() => approve(l.id)} className="p-1.5 text-gray-400 hover:text-green-600 hover:bg-green-50 rounded-lg"><Check size={14}/></button>}</Td>
+                <Td>{l.status === 'pending' && <button onClick={() => approve(l.id)} className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg"><Check size={14}/></button>}</Td>
               </Tr>
             ))}
             {(!loans.data || loans.data.length === 0) && <Tr><Td className="text-center py-8 text-gray-400" colSpan={8}>No loans</Td></Tr>}
@@ -55,12 +55,12 @@ export default function Loans({ loans, employees }) {
           </Select>
           <div className="grid grid-cols-2 gap-3">
             <div><label className="block text-sm font-medium text-gray-700 mb-1">Amount *</label>
-              <input type="number" value={data.amount} onChange={e => setData('amount', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="50000"/></div>
+              <input type="number" value={data.amount} onChange={e => setData('amount', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="50000"/></div>
             <div><label className="block text-sm font-medium text-gray-700 mb-1">Installments</label>
-              <input type="number" min="1" value={data.installments} onChange={e => setData('installments', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/></div>
+              <input type="number" min="1" value={data.installments} onChange={e => setData('installments', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/></div>
           </div>
           {data.amount && data.installments && (
-            <div className="bg-indigo-50 rounded-lg p-3 text-sm text-indigo-700">
+            <div className="bg-blue-50 rounded-lg p-3 text-sm text-blue-700">
               Monthly deduction: <strong>Rs. {Math.round(data.amount / data.installments).toLocaleString()}</strong>
             </div>
           )}

@@ -31,18 +31,18 @@ export default function LeaveBalances({ balances, year }) {
                   </Td>
                   <Td>
                     <div className="flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full" style={{background: b.leave_type?.color || '#4F46E5'}}/>
+                      <span className="w-2 h-2 rounded-full" style={{background: b.leave_type?.color || '#2563eb'}}/>
                       {b.leave_type?.name}
                     </div>
                   </Td>
                   <Td>{b.allocated}</Td>
-                  <Td><span className="text-red-600 font-medium">{b.used}</span></Td>
-                  <Td><span className="text-yellow-600">{b.pending}</span></Td>
-                  <Td><span className="text-green-700 font-bold">{available}</span></Td>
+                  <Td><span className="text-blue-600 font-medium">{b.used}</span></Td>
+                  <Td><span className="text-blue-600">{b.pending}</span></Td>
+                  <Td><span className="text-blue-700 font-bold">{available}</span></Td>
                   <Td>
                     <div className="w-24">
                       <div className="h-1.5 rounded-full bg-gray-100">
-                        <div className="h-1.5 rounded-full bg-indigo-500" style={{width:`${usedPct}%`}}/>
+                        <div className="h-1.5 rounded-full bg-blue-500" style={{width:`${usedPct}%`}}/>
                       </div>
                       <span className="text-xs text-gray-400">{Math.round(usedPct)}% used</span>
                     </div>

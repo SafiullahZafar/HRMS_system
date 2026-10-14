@@ -11,7 +11,7 @@ export default function LeaveTypes({ leaveTypes }) {
   const { data, setData, post, processing, errors, reset } = useForm({
     name: '', code: '', days_per_year: 0, is_paid: true,
     carry_forward: false, max_carry_forward: 0, applicable_gender: 'all',
-    requires_document: false, available_in_probation: false, color: '#4F46E5',
+    requires_document: false, available_in_probation: false, color: '#2563eb',
   });
   const submit = (e) => { e.preventDefault(); post('/leave/types', { onSuccess: () => { reset(); setModal(false); } }); };
 
@@ -25,7 +25,7 @@ export default function LeaveTypes({ leaveTypes }) {
         {leaveTypes.map(lt => (
           <div key={lt.id} className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 hover:shadow-md transition">
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center text-white font-bold text-sm" style={{background: lt.color || '#4F46E5'}}>
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center text-white font-bold text-sm" style={{background: lt.color || '#2563eb'}}>
                 {lt.code}
               </div>
               <div>
@@ -34,12 +34,12 @@ export default function LeaveTypes({ leaveTypes }) {
               </div>
             </div>
             <div className="flex flex-wrap gap-1.5 text-xs">
-              {lt.is_paid && <span className="px-2 py-0.5 bg-green-100 text-green-700 rounded-full">Paid</span>}
+              {lt.is_paid && <span className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full">Paid</span>}
               {!lt.is_paid && <span className="px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">Unpaid</span>}
               {lt.carry_forward && <span className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full">Carry Forward</span>}
-              {lt.encashable && <span className="px-2 py-0.5 bg-purple-100 text-purple-700 rounded-full">Encashable</span>}
-              {lt.requires_document && <span className="px-2 py-0.5 bg-yellow-100 text-yellow-700 rounded-full">Doc Required</span>}
-              {lt.applicable_gender !== 'all' && <span className="px-2 py-0.5 bg-pink-100 text-pink-700 rounded-full capitalize">{lt.applicable_gender} only</span>}
+              {lt.encashable && <span className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full">Encashable</span>}
+              {lt.requires_document && <span className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full">Doc Required</span>}
+              {lt.applicable_gender !== 'all' && <span className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full capitalize">{lt.applicable_gender} only</span>}
             </div>
           </div>
         ))}
@@ -62,11 +62,11 @@ export default function LeaveTypes({ leaveTypes }) {
           </div>
           <div className="flex items-center gap-4">
             <label className="flex items-center gap-2 text-sm cursor-pointer">
-              <input type="checkbox" checked={data.carry_forward} onChange={e => setData('carry_forward', e.target.checked)} className="rounded text-indigo-600"/>
+              <input type="checkbox" checked={data.carry_forward} onChange={e => setData('carry_forward', e.target.checked)} className="rounded text-blue-600"/>
               Carry Forward
             </label>
             <label className="flex items-center gap-2 text-sm cursor-pointer">
-              <input type="checkbox" checked={data.requires_document} onChange={e => setData('requires_document', e.target.checked)} className="rounded text-indigo-600"/>
+              <input type="checkbox" checked={data.requires_document} onChange={e => setData('requires_document', e.target.checked)} className="rounded text-blue-600"/>
               Requires Document
             </label>
           </div>

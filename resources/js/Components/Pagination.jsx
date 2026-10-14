@@ -26,7 +26,7 @@ export default function Pagination({ links, meta }) {
           return (
             <Link key={i} href={link.url || '#'} preserveState
               className={`min-w-[32px] h-8 flex items-center justify-center rounded-lg text-sm font-medium ${
-                link.active ? 'bg-indigo-600 text-white' : 'text-gray-600 hover:bg-gray-100'
+                link.active ? 'bg-blue-600 text-white' : 'text-gray-600 hover:bg-gray-100'
               } ${!link.url ? 'cursor-not-allowed opacity-50' : ''}`}
               dangerouslySetInnerHTML={{ __html: link.label }}
             />

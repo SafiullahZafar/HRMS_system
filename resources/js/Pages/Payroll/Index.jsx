@@ -26,7 +26,7 @@ export default function PayrollIndex({ payrollRuns, summary }) {
 
       {/* Summary */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
-        {[{l:'Draft',v:summary.draft,c:'bg-gray-50 text-gray-700'},{l:'Pending Review',v:summary.pending,c:'bg-yellow-50 text-yellow-700'},{l:'Approved',v:summary.approved,c:'bg-green-50 text-green-700'},{l:'Paid',v:summary.paid,c:'bg-indigo-50 text-indigo-700'}].map(s=>(
+        {[{l:'Draft',v:summary.draft,c:'bg-gray-50 text-gray-700'},{l:'Pending Review',v:summary.pending,c:'bg-blue-50 text-blue-700'},{l:'Approved',v:summary.approved,c:'bg-blue-50 text-blue-700'},{l:'Paid',v:summary.paid,c:'bg-blue-50 text-blue-700'}].map(s=>(
           <div key={s.l} className={`${s.c} rounded-xl p-4 text-center`}>
             <p className="text-2xl font-bold">{s.v}</p>
             <p className="text-xs mt-0.5">{s.l}</p>
@@ -43,14 +43,14 @@ export default function PayrollIndex({ payrollRuns, summary }) {
                 <Td><div><p className="font-medium text-gray-900">{run.title}</p><p className="text-xs text-gray-400">{run.pay_date ? new Date(run.pay_date).toLocaleDateString() : '—'}</p></div></Td>
                 <Td>{run.employee_count}</Td>
                 <Td className="font-medium">Rs. {Number(run.total_gross).toLocaleString()}</Td>
-                <Td className="text-red-600">-Rs. {Number(run.total_deductions).toLocaleString()}</Td>
-                <Td className="font-bold text-green-700">Rs. {Number(run.total_net).toLocaleString()}</Td>
+                <Td className="text-blue-600">-Rs. {Number(run.total_deductions).toLocaleString()}</Td>
+                <Td className="font-bold text-blue-700">Rs. {Number(run.total_net).toLocaleString()}</Td>
                 <Td><Badge status={run.status}/></Td>
                 <Td>
                   <div className="flex gap-1">
-                    <Link href={`/payroll/${run.id}`} className="p-1.5 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition"><Eye size={14}/></Link>
+                    <Link href={`/payroll/${run.id}`} className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition"><Eye size={14}/></Link>
                     {['calculated','under_review'].includes(run.status) && (
-                      <button onClick={() => approve(run.id)} className="p-1.5 text-gray-400 hover:text-green-600 hover:bg-green-50 rounded-lg transition"><Check size={14}/></button>
+                      <button onClick={() => approve(run.id)} className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition"><Check size={14}/></button>
                     )}
                   </div>
                 </Td>
@@ -69,9 +69,9 @@ export default function PayrollIndex({ payrollRuns, summary }) {
           </Select>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Year</label>
-            <input type="number" value={data.year} onChange={e => setData('year', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/>
+            <input type="number" value={data.year} onChange={e => setData('year', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/>
           </div>
-          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 text-sm text-yellow-800">
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm text-blue-800">
             ⚠️ This will calculate payroll for all active employees for <strong>{months[data.month-1]} {data.year}</strong>.
           </div>
           <div className="flex justify-end gap-2">

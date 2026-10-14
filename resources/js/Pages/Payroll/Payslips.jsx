@@ -17,10 +17,10 @@ export default function Payslips({ payslips }) {
                 <Td><div className="flex items-center gap-2"><Avatar name={`${ps.employee?.first_name} ${ps.employee?.last_name}`} size="sm"/><span className="font-medium text-sm">{ps.employee?.first_name} {ps.employee?.last_name}</span></div></Td>
                 <Td><span className="font-mono text-xs bg-gray-100 px-2 py-0.5 rounded">{ps.slip_number}</span></Td>
                 <Td>{ps.payroll_run?.title || '—'}</Td>
-                <Td className="font-bold text-green-700">Rs. {Number(ps.payroll_item?.net_salary || 0).toLocaleString()}</Td>
-                <Td>{ps.is_emailed ? <span className="text-green-600 text-xs font-medium">✓ Sent</span> : <span className="text-gray-400 text-xs">Pending</span>}</Td>
+                <Td className="font-bold text-blue-700">Rs. {Number(ps.payroll_item?.net_salary || 0).toLocaleString()}</Td>
+                <Td>{ps.is_emailed ? <span className="text-blue-600 text-xs font-medium">✓ Sent</span> : <span className="text-gray-400 text-xs">Pending</span>}</Td>
                 <Td><div className="flex gap-1">
-                  <button className="p-1.5 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg"><Download size={13}/></button>
+                  <button className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg"><Download size={13}/></button>
                   <button className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg"><Mail size={13}/></button>
                 </div></Td>
               </Tr>

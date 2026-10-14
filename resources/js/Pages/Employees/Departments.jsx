@@ -23,10 +23,10 @@ export default function Departments({ departments, branches, managers }) {
         {departments.map(dept => (
           <div key={dept.id} className="bg-white rounded-xl border border-gray-200 p-5 shadow-sm hover:shadow-md transition">
             <div className="flex items-start justify-between mb-3">
-              <div className="p-2.5 bg-indigo-50 rounded-xl"><Building2 size={20} className="text-indigo-600"/></div>
+              <div className="p-2.5 bg-blue-50 rounded-xl"><Building2 size={20} className="text-blue-600"/></div>
               <div className="flex gap-1">
                 <button className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg"><Edit size={14}/></button>
-                <button className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg"><Trash2 size={14}/></button>
+                <button className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg"><Trash2 size={14}/></button>
               </div>
             </div>
             <h3 className="font-semibold text-gray-900">{dept.name}</h3>

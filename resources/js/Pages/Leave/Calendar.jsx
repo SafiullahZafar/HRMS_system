@@ -49,12 +49,12 @@ export default function LeaveCalendar({ leaves }) {
             const dayLeaves = leavesOnDay(day);
             const isToday = today.getDate() === day && today.getMonth() === current.month && today.getFullYear() === current.year;
             return (
-              <div key={day} className={`border-r border-b border-gray-100 min-h-[90px] p-1.5 ${isToday ? 'bg-indigo-50' : 'hover:bg-gray-50'}`}>
-                <span className={`inline-flex items-center justify-center w-6 h-6 text-sm rounded-full mb-1 ${isToday ? 'bg-indigo-600 text-white font-bold' : 'text-gray-700'}`}>{day}</span>
+              <div key={day} className={`border-r border-b border-gray-100 min-h-[90px] p-1.5 ${isToday ? 'bg-blue-50' : 'hover:bg-gray-50'}`}>
+                <span className={`inline-flex items-center justify-center w-6 h-6 text-sm rounded-full mb-1 ${isToday ? 'bg-blue-600 text-white font-bold' : 'text-gray-700'}`}>{day}</span>
                 <div className="space-y-0.5">
                   {dayLeaves.slice(0, 3).map((l, i) => (
                     <div key={i} className="text-xs px-1.5 py-0.5 rounded truncate font-medium"
-                      style={{ background: (l.leave_type?.color || '#4F46E5') + '22', color: l.leave_type?.color || '#4F46E5' }}>
+                      style={{ background: (l.leave_type?.color || '#2563eb') + '22', color: l.leave_type?.color || '#2563eb' }}>
                       {l.employee?.first_name}
                     </div>
                   ))}

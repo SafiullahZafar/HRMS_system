@@ -13,7 +13,7 @@ import {
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend,
 } from 'recharts';
 
-const PIE_COLORS = ['#4F46E5','#7C3AED','#0891B2','#059669','#D97706','#DC2626','#DB2777'];
+const PIE_COLORS = ['#2563eb','#3b82f6','#60a5fa','#93c5fd','#bfdbfe','#1d4ed8','#dbeafe'];
 
 export default function Dashboard({ stats, attendanceTrend, byDepartment, recentHires, pendingLeaveRequests, announcements }) {
   const { auth } = usePage().props;
@@ -56,12 +56,12 @@ export default function Dashboard({ stats, attendanceTrend, byDepartment, recent
         <p className="text-sm font-semibold text-gray-700 mb-3">Quick Actions</p>
         <div className="flex flex-wrap gap-2">
           {[
-            { label: '+ Add Employee', href: '/employees/create',        color: 'bg-indigo-600 text-white hover:bg-indigo-700' },
-            { label: 'Mark Attendance', href: '/attendance',             color: 'bg-green-600 text-white hover:bg-green-700' },
+            { label: '+ Add Employee', href: '/employees/create',        color: 'bg-blue-600 text-white hover:bg-blue-700' },
+            { label: 'Mark Attendance', href: '/attendance',             color: 'bg-blue-600 text-white hover:bg-blue-700' },
             { label: 'Run Payroll',     href: '/payroll',                color: 'bg-blue-600 text-white hover:bg-blue-700' },
-            { label: 'Approve Leave',   href: '/leave',                  color: 'bg-purple-600 text-white hover:bg-purple-700' },
-            { label: 'Create Job',      href: '/recruitment/jobs',       color: 'bg-teal-600 text-white hover:bg-teal-700' },
-            { label: 'Announcement',    href: '/announcements',          color: 'bg-orange-500 text-white hover:bg-orange-600' },
+            { label: 'Approve Leave',   href: '/leave',                  color: 'bg-blue-600 text-white hover:bg-blue-700' },
+            { label: 'Create Job',      href: '/recruitment/jobs',       color: 'bg-blue-600 text-white hover:bg-blue-700' },
+            { label: 'Announcement',    href: '/announcements',          color: 'bg-blue-500 text-white hover:bg-blue-600' },
           ].map(a => (
             <Link key={a.href} href={a.href} className={`px-3 py-1.5 rounded-lg text-sm font-medium transition ${a.color}`}>
               {a.label}
@@ -81,22 +81,22 @@ export default function Dashboard({ stats, attendanceTrend, byDepartment, recent
             <AreaChart data={attendanceTrend} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
               <defs>
                 <linearGradient id="gradPresent" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%"  stopColor="#4F46E5" stopOpacity={0.2} />
-                  <stop offset="95%" stopColor="#4F46E5" stopOpacity={0} />
+                  <stop offset="5%"  stopColor="#2563eb" stopOpacity={0.2} />
+                  <stop offset="95%" stopColor="#2563eb" stopOpacity={0} />
                 </linearGradient>
                 <linearGradient id="gradAbsent" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%"  stopColor="#DC2626" stopOpacity={0.15} />
-                  <stop offset="95%" stopColor="#DC2626" stopOpacity={0} />
+                  <stop offset="5%"  stopColor="#2563eb" stopOpacity={0.15} />
+                  <stop offset="95%" stopColor="#2563eb" stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+              <CartesianGrid strokeDasharray="3 3" stroke="#dbeafe" />
               <XAxis dataKey="date" tick={{ fontSize: 12 }} axisLine={false} tickLine={false} />
               <YAxis tick={{ fontSize: 12 }} axisLine={false} tickLine={false} />
               <Tooltip contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }} />
               <Legend iconType="circle" iconSize={8} />
-              <Area type="monotone" dataKey="present" stroke="#4F46E5" strokeWidth={2} fill="url(#gradPresent)" name="Present" />
-              <Area type="monotone" dataKey="late"    stroke="#D97706" strokeWidth={2} fill="none" name="Late" />
-              <Area type="monotone" dataKey="absent"  stroke="#DC2626" strokeWidth={2} fill="url(#gradAbsent)" name="Absent" />
+              <Area type="monotone" dataKey="present" stroke="#2563eb" strokeWidth={2} fill="url(#gradPresent)" name="Present" />
+              <Area type="monotone" dataKey="late"    stroke="#60a5fa" strokeWidth={2} fill="none" name="Late" />
+              <Area type="monotone" dataKey="absent"  stroke="#1d4ed8" strokeWidth={2} fill="url(#gradAbsent)" name="Absent" />
             </AreaChart>
           </ResponsiveContainer>
         </div>
@@ -132,7 +132,7 @@ export default function Dashboard({ stats, attendanceTrend, byDepartment, recent
         <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-semibold text-gray-900">New Hires</h3>
-            <Link href="/employees" className="text-xs text-indigo-600 hover:text-indigo-800 flex items-center gap-1">View All <ArrowRight size={12} /></Link>
+            <Link href="/employees" className="text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1">View All <ArrowRight size={12} /></Link>
           </div>
           <div className="space-y-3">
             {recentHires.map(emp => (
@@ -153,7 +153,7 @@ export default function Dashboard({ stats, attendanceTrend, byDepartment, recent
         <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-semibold text-gray-900">Leave Requests</h3>
-            <Link href="/leave" className="text-xs text-indigo-600 hover:text-indigo-800 flex items-center gap-1">View All <ArrowRight size={12} /></Link>
+            <Link href="/leave" className="text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1">View All <ArrowRight size={12} /></Link>
           </div>
           <div className="space-y-3">
             {pendingLeaveRequests.map(req => (
@@ -174,13 +174,13 @@ export default function Dashboard({ stats, attendanceTrend, byDepartment, recent
         <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-semibold text-gray-900">Announcements</h3>
-            <Link href="/announcements" className="text-xs text-indigo-600 hover:text-indigo-800 flex items-center gap-1">View All <ArrowRight size={12} /></Link>
+            <Link href="/announcements" className="text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1">View All <ArrowRight size={12} /></Link>
           </div>
           <div className="space-y-3">
             {announcements.map(ann => (
-              <div key={ann.id} className="p-3 rounded-lg border border-gray-100 hover:border-indigo-200 hover:bg-indigo-50/30 transition">
+              <div key={ann.id} className="p-3 rounded-lg border border-gray-100 hover:border-blue-200 hover:bg-blue-50/30 transition">
                 <div className="flex items-start gap-2">
-                  <div className={`w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0 ${ann.priority === 'high' ? 'bg-red-500' : ann.priority === 'medium' ? 'bg-yellow-500' : 'bg-green-500'}`} />
+                  <div className={`w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0 ${ann.priority === 'high' ? 'bg-blue-500' : ann.priority === 'medium' ? 'bg-blue-500' : 'bg-blue-500'}`} />
                   <div>
                     <p className="text-sm font-medium text-gray-900 leading-snug">{ann.title}</p>
                     <p className="text-xs text-gray-400 mt-0.5 line-clamp-2">{ann.content}</p>

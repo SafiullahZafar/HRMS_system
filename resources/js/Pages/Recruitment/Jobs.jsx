@@ -22,7 +22,7 @@ export default function Jobs({ jobs, departments, summary }) {
       </div>
 
       <div className="grid grid-cols-3 gap-3 mb-5">
-        {[{l:'Published',v:summary.published,c:'bg-green-50 text-green-700'},{l:'Draft',v:summary.draft,c:'bg-gray-50 text-gray-700'},{l:'Closed',v:summary.closed,c:'bg-red-50 text-red-600'}].map(s=>(
+        {[{l:'Published',v:summary.published,c:'bg-blue-50 text-blue-700'},{l:'Draft',v:summary.draft,c:'bg-gray-50 text-gray-700'},{l:'Closed',v:summary.closed,c:'bg-blue-50 text-blue-600'}].map(s=>(
           <div key={s.l} className={`${s.c} rounded-xl p-4 text-center`}><p className="text-2xl font-bold">{s.v}</p><p className="text-xs mt-0.5">{s.l}</p></div>
         ))}
       </div>
@@ -45,8 +45,8 @@ export default function Jobs({ jobs, departments, summary }) {
             <div className="flex items-center justify-between pt-3 border-t border-gray-100">
               <div className="flex items-center gap-1 text-xs text-gray-500"><Users size={12}/>{job.candidates_count} applicants</div>
               <div className="flex gap-1">
-                {job.status === 'draft' && <button onClick={() => router.put(`/recruitment/jobs/${job.id}`, { status: 'published', title: job.title })} className="text-xs px-2 py-1 bg-green-100 text-green-700 rounded-lg hover:bg-green-200">Publish</button>}
-                {job.status === 'published' && <button onClick={() => router.put(`/recruitment/jobs/${job.id}`, { status: 'closed', title: job.title })} className="text-xs px-2 py-1 bg-red-100 text-red-700 rounded-lg hover:bg-red-200">Close</button>}
+                {job.status === 'draft' && <button onClick={() => router.put(`/recruitment/jobs/${job.id}`, { status: 'published', title: job.title })} className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200">Publish</button>}
+                {job.status === 'published' && <button onClick={() => router.put(`/recruitment/jobs/${job.id}`, { status: 'closed', title: job.title })} className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200">Close</button>}
               </div>
             </div>
           </div>
@@ -62,7 +62,7 @@ export default function Jobs({ jobs, departments, summary }) {
         <form onSubmit={submit} className="space-y-4">
           <div className="grid grid-cols-2 gap-3">
             <div className="col-span-2"><label className="block text-sm font-medium text-gray-700 mb-1">Job Title *</label>
-              <input value={data.title} onChange={e => setData('title', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="e.g. Backend Laravel Developer"/></div>
+              <input value={data.title} onChange={e => setData('title', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="e.g. Backend Laravel Developer"/></div>
             <Select label="Department" value={data.department_id} onChange={e => setData('department_id', e.target.value)}>
               <option value="">Select Department</option>
               {departments.map(d => <option key={d.id} value={d.id}>{d.name}</option>)}
@@ -71,15 +71,15 @@ export default function Jobs({ jobs, departments, summary }) {
               {['full_time','part_time','contract','intern'].map(t => <option key={t} value={t} className="capitalize">{t.replace('_',' ')}</option>)}
             </Select>
             <div><label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
-              <input value={data.location} onChange={e => setData('location', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="Lahore"/></div>
+              <input value={data.location} onChange={e => setData('location', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Lahore"/></div>
             <div><label className="block text-sm font-medium text-gray-700 mb-1">Vacancies</label>
-              <input type="number" min="1" value={data.vacancies} onChange={e => setData('vacancies', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/></div>
+              <input type="number" min="1" value={data.vacancies} onChange={e => setData('vacancies', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/></div>
             <div><label className="block text-sm font-medium text-gray-700 mb-1">Min Salary</label>
-              <input type="number" value={data.salary_min} onChange={e => setData('salary_min', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="80000"/></div>
+              <input type="number" value={data.salary_min} onChange={e => setData('salary_min', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="80000"/></div>
             <div><label className="block text-sm font-medium text-gray-700 mb-1">Max Salary</label>
-              <input type="number" value={data.salary_max} onChange={e => setData('salary_max', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="120000"/></div>
+              <input type="number" value={data.salary_max} onChange={e => setData('salary_max', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="120000"/></div>
             <div><label className="block text-sm font-medium text-gray-700 mb-1">Deadline</label>
-              <input type="date" value={data.deadline} onChange={e => setData('deadline', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/></div>
+              <input type="date" value={data.deadline} onChange={e => setData('deadline', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/></div>
           </div>
           <Textarea label="Requirements" value={data.requirements} onChange={e => setData('requirements', e.target.value)} rows={3} placeholder="List skills and requirements…"/>
           <Textarea label="Job Description" value={data.description} onChange={e => setData('description', e.target.value)} rows={3}/>

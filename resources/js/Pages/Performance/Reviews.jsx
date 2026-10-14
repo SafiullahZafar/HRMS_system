@@ -16,7 +16,7 @@ function ScoreInput({ label, value, onChange }) {
       <label className="block text-xs font-medium text-gray-600 mb-1">{label}</label>
       <div className="flex gap-1">{[1,2,3,4,5].map(n => (
         <button key={n} type="button" onClick={() => onChange(n)}
-          className={`w-8 h-8 rounded-lg text-sm font-bold transition ${value >= n ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-400 hover:bg-indigo-50'}`}>{n}</button>
+          className={`w-8 h-8 rounded-lg text-sm font-bold transition ${value >= n ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-400 hover:bg-blue-50'}`}>{n}</button>
       ))}</div>
     </div>
   );
@@ -48,7 +48,7 @@ export default function Reviews({ reviews, employees }) {
                 <Td className="capitalize">{r.period}</Td>
                 <Td>{r.review_year}</Td>
                 <Td>{r.overall_rating ? (
-                  <div className="flex items-center gap-1"><Star size={13} className="text-yellow-400 fill-yellow-400"/><span className="font-bold text-sm">{r.overall_rating}/5</span></div>
+                  <div className="flex items-center gap-1"><Star size={13} className="text-blue-400 fill-yellow-400"/><span className="font-bold text-sm">{r.overall_rating}/5</span></div>
                 ) : '—'}</Td>
                 <Td><span className="text-xs text-gray-500 max-w-[160px] truncate block">{r.strengths || '—'}</span></Td>
                 <Td><Badge status={r.status}/></Td>
@@ -71,7 +71,7 @@ export default function Reviews({ reviews, employees }) {
               <option value="annual">Annual</option><option value="quarterly">Quarterly</option><option value="monthly">Monthly</option>
             </Select>
             <div><label className="block text-sm font-medium text-gray-700 mb-1">Year</label>
-              <input type="number" value={data.review_year} onChange={e => setData('review_year', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/></div>
+              <input type="number" value={data.review_year} onChange={e => setData('review_year', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/></div>
           </div>
           <div>
             <p className="text-sm font-semibold text-gray-700 mb-3">Scores (1–5)</p>

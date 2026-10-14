@@ -9,7 +9,7 @@ const REPORT_CARDS = [
   { icon: DollarSign,title: 'Payroll Reports',     desc: 'Salary register, deductions, bonuses, bank transfers', href: '/reports/payroll', color: 'green' },
 ];
 
-const colorMap = { indigo:'bg-indigo-50 text-indigo-600', blue:'bg-blue-50 text-blue-600', purple:'bg-purple-50 text-purple-600', green:'bg-green-50 text-green-600' };
+const colorMap = { indigo:'bg-blue-50 text-blue-600', blue:'bg-blue-50 text-blue-600', purple:'bg-blue-50 text-blue-600', green:'bg-blue-50 text-blue-600' };
 
 export default function ReportsIndex({ overview }) {
   const fmt = v => typeof v === 'number' ? v.toLocaleString() : v;
@@ -29,11 +29,11 @@ export default function ReportsIndex({ overview }) {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {REPORT_CARDS.map(card => (
-          <Link key={card.href} href={card.href} className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 hover:shadow-md hover:border-indigo-200 transition group">
+          <Link key={card.href} href={card.href} className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 hover:shadow-md hover:border-blue-200 transition group">
             <div className={`inline-flex p-3 rounded-xl mb-3 ${colorMap[card.color]}`}><card.icon size={22}/></div>
-            <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-indigo-600 transition">{card.title}</h3>
+            <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-blue-600 transition">{card.title}</h3>
             <p className="text-xs text-gray-500 leading-relaxed mb-3">{card.desc}</p>
-            <div className="flex items-center gap-1 text-xs text-indigo-600 font-medium"><span>View Report</span><ArrowRight size={12}/></div>
+            <div className="flex items-center gap-1 text-xs text-blue-600 font-medium"><span>View Report</span><ArrowRight size={12}/></div>
           </Link>
         ))}
       </div>

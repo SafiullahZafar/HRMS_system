@@ -28,11 +28,11 @@ export default function AttendanceIndex({ daily, summary, date, departments }) {
   const submitMark = (e) => { e.preventDefault(); post('/attendance/mark', { onSuccess: () => { reset(); setMarkModal(null); } }); };
 
   const summaryCards = [
-    { label: 'Present',  value: summary.present, icon: CheckCircle, color: 'text-green-600', bg: 'bg-green-50' },
-    { label: 'Absent',   value: summary.absent,  icon: XCircle,     color: 'text-red-600',   bg: 'bg-red-50' },
-    { label: 'Late',     value: summary.late,    icon: AlertCircle, color: 'text-yellow-600', bg: 'bg-yellow-50' },
-    { label: 'On Leave', value: summary.leave,   icon: Home,        color: 'text-purple-600', bg: 'bg-purple-50' },
-    { label: 'WFH',      value: summary.wfh,     icon: Home,        color: 'text-teal-600',   bg: 'bg-teal-50' },
+    { label: 'Present',  value: summary.present, icon: CheckCircle, color: 'text-blue-600', bg: 'bg-blue-50' },
+    { label: 'Absent',   value: summary.absent,  icon: XCircle,     color: 'text-blue-600',   bg: 'bg-blue-50' },
+    { label: 'Late',     value: summary.late,    icon: AlertCircle, color: 'text-blue-600', bg: 'bg-blue-50' },
+    { label: 'On Leave', value: summary.leave,   icon: Home,        color: 'text-blue-600', bg: 'bg-blue-50' },
+    { label: 'WFH',      value: summary.wfh,     icon: Home,        color: 'text-blue-600',   bg: 'bg-blue-50' },
   ];
 
   return (
@@ -78,7 +78,7 @@ export default function AttendanceIndex({ daily, summary, date, departments }) {
                   <span className="text-gray-500">{att.check_in || '—'}</span>
                   <span className="text-gray-300">→</span>
                   <span className="text-gray-500">{att.check_out || '—'}</span>
-                  {att.late_minutes > 0 && <span className="text-xs text-yellow-600 font-medium">+{att.late_minutes}m late</span>}
+                  {att.late_minutes > 0 && <span className="text-xs text-blue-600 font-medium">+{att.late_minutes}m late</span>}
                   <Badge status={status}/>
                 </div>
               ) : (
@@ -103,17 +103,17 @@ export default function AttendanceIndex({ daily, summary, date, departments }) {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Check In</label>
-                <input type="time" value={data.check_in} onChange={e => setData('check_in', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/>
+                <input type="time" value={data.check_in} onChange={e => setData('check_in', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Check Out</label>
-                <input type="time" value={data.check_out} onChange={e => setData('check_out', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/>
+                <input type="time" value={data.check_out} onChange={e => setData('check_out', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/>
               </div>
             </div>
           </>}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Notes</label>
-            <textarea rows={2} value={data.notes} onChange={e => setData('notes', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none resize-none" placeholder="Optional notes…"/>
+            <textarea rows={2} value={data.notes} onChange={e => setData('notes', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none resize-none" placeholder="Optional notes…"/>
           </div>
           <div className="flex justify-end gap-2">
             <Button type="button" variant="secondary" onClick={() => setMarkModal(null)}>Cancel</Button>

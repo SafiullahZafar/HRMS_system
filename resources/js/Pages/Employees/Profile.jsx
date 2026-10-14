@@ -32,7 +32,7 @@ export default function EmployeeProfile({ employee }) {
 
       {/* Profile Card */}
       <div className="bg-white rounded-xl border border-gray-200 shadow-sm mb-5 overflow-hidden">
-        <div className="h-24 bg-gradient-to-r from-indigo-600 to-purple-600"/>
+        <div className="h-24 bg-gradient-to-r from-blue-600 to-blue-600"/>
         <div className="px-6 pb-5">
           <div className="flex flex-col sm:flex-row items-start sm:items-end gap-4 -mt-10">
             <div className="ring-4 ring-white rounded-full">
@@ -61,7 +61,7 @@ export default function EmployeeProfile({ employee }) {
         <div className="flex overflow-x-auto border-b border-gray-100">
           {TABS.map(t => (
             <button key={t.id} onClick={() => setTab(t.id)}
-              className={`flex items-center gap-1.5 px-4 py-3.5 text-sm font-medium whitespace-nowrap transition border-b-2 -mb-px ${tab === t.id ? 'border-indigo-600 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700'}`}>
+              className={`flex items-center gap-1.5 px-4 py-3.5 text-sm font-medium whitespace-nowrap transition border-b-2 -mb-px ${tab === t.id ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700'}`}>
               <t.icon size={14}/>{t.label}
             </button>
           ))}
@@ -129,7 +129,7 @@ function AttendanceTab({ records = [] }) {
             <Td>{r.check_in || '—'}</Td>
             <Td>{r.check_out || '—'}</Td>
             <Td><Badge status={r.status}/></Td>
-            <Td>{r.late_minutes > 0 ? <span className="text-yellow-600 font-medium">{r.late_minutes}</span> : '—'}</Td>
+            <Td>{r.late_minutes > 0 ? <span className="text-blue-600 font-medium">{r.late_minutes}</span> : '—'}</Td>
             <Td>{r.worked_minutes ? `${Math.floor(r.worked_minutes/60)}h ${r.worked_minutes%60}m` : '—'}</Td>
           </Tr>
         ))}
@@ -153,7 +153,7 @@ function LeaveTab({ requests = [], balances = [] }) {
                 <p className="text-2xl font-bold text-gray-900 mt-1">{available}</p>
                 <p className="text-xs text-gray-400">of {b.allocated} days</p>
                 <div className="mt-2 h-1.5 rounded-full bg-gray-200">
-                  <div className="h-1.5 rounded-full bg-indigo-500" style={{width:`${Math.min(100,(Number(b.used)/Number(b.allocated||1))*100)}%`}}/>
+                  <div className="h-1.5 rounded-full bg-blue-500" style={{width:`${Math.min(100,(Number(b.used)/Number(b.allocated||1))*100)}%`}}/>
                 </div>
               </div>
             );
@@ -193,8 +193,8 @@ function PayrollTab({ items = [] }) {
             <Td>Rs. {Number(i.basic_salary).toLocaleString()}</Td>
             <Td>Rs. {Number(i.total_allowances).toLocaleString()}</Td>
             <Td>Rs. {Number(i.gross_salary).toLocaleString()}</Td>
-            <Td className="text-red-600">-Rs. {Number(i.total_deductions).toLocaleString()}</Td>
-            <Td className="font-semibold text-green-700">Rs. {Number(i.net_salary).toLocaleString()}</Td>
+            <Td className="text-blue-600">-Rs. {Number(i.total_deductions).toLocaleString()}</Td>
+            <Td className="font-semibold text-blue-700">Rs. {Number(i.net_salary).toLocaleString()}</Td>
           </Tr>
         ))}
         {items.length === 0 && <Tr><Td className="text-center py-6 text-gray-400" colSpan={6}>No payroll records</Td></Tr>}
@@ -215,10 +215,10 @@ function PerformanceTab({ reviews = [], goals = [] }) {
               <div key={g.id} className="p-3 rounded-lg border border-gray-100">
                 <div className="flex items-center justify-between mb-1.5">
                   <p className="text-sm font-medium text-gray-900">{g.title}</p>
-                  <span className="text-sm font-bold text-indigo-600">{pct}%</span>
+                  <span className="text-sm font-bold text-blue-600">{pct}%</span>
                 </div>
                 <div className="h-2 rounded-full bg-gray-100">
-                  <div className="h-2 rounded-full bg-indigo-500 transition-all" style={{width:`${pct}%`}}/>
+                  <div className="h-2 rounded-full bg-blue-500 transition-all" style={{width:`${pct}%`}}/>
                 </div>
                 <p className="text-xs text-gray-400 mt-1">{g.achieved} / {g.target} {g.unit}</p>
               </div>
@@ -233,7 +233,7 @@ function PerformanceTab({ reviews = [], goals = [] }) {
           <div key={r.id} className="p-4 rounded-lg border border-gray-100 mb-3">
             <div className="flex items-center justify-between">
               <p className="text-sm font-medium text-gray-900 capitalize">{r.period} Review {r.review_year}</p>
-              {r.overall_rating && <div className="flex items-center gap-1 bg-indigo-50 px-2 py-0.5 rounded-full"><span className="text-indigo-700 font-bold text-sm">{r.overall_rating}</span><span className="text-indigo-400 text-xs">/5</span></div>}
+              {r.overall_rating && <div className="flex items-center gap-1 bg-blue-50 px-2 py-0.5 rounded-full"><span className="text-blue-700 font-bold text-sm">{r.overall_rating}</span><span className="text-blue-400 text-xs">/5</span></div>}
             </div>
             {r.strengths && <p className="text-xs text-gray-500 mt-1.5"><span className="font-medium">Strengths:</span> {r.strengths}</p>}
             {r.manager_comments && <p className="text-xs text-gray-500 mt-1"><span className="font-medium">Comments:</span> {r.manager_comments}</p>}
@@ -249,8 +249,8 @@ function DocumentsTab({ docs = [] }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
       {docs.map(d => (
-        <div key={d.id} className="p-3 rounded-lg border border-gray-100 hover:border-indigo-200 transition flex items-center gap-3">
-          <div className="p-2 bg-indigo-50 rounded-lg"><FileText size={16} className="text-indigo-600"/></div>
+        <div key={d.id} className="p-3 rounded-lg border border-gray-100 hover:border-blue-200 transition flex items-center gap-3">
+          <div className="p-2 bg-blue-50 rounded-lg"><FileText size={16} className="text-blue-600"/></div>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-medium text-gray-900 truncate">{d.title}</p>
             <p className="text-xs text-gray-400 capitalize">{d.category}</p>
@@ -290,13 +290,13 @@ function OnboardingTab({ tasks = [] }) {
       <div className="flex items-center justify-between mb-4">
         <p className="text-sm text-gray-500">{done} of {tasks.length} tasks completed</p>
         <div className="h-2 w-48 rounded-full bg-gray-100 overflow-hidden">
-          <div className="h-2 rounded-full bg-green-500" style={{width:`${tasks.length ? (done/tasks.length)*100 : 0}%`}}/>
+          <div className="h-2 rounded-full bg-blue-500" style={{width:`${tasks.length ? (done/tasks.length)*100 : 0}%`}}/>
         </div>
       </div>
       <div className="space-y-2">
         {tasks.map(t => (
-          <div key={t.id} className={`flex items-center gap-3 p-3 rounded-lg border ${t.is_completed ? 'border-green-100 bg-green-50/50' : 'border-gray-100'}`}>
-            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${t.is_completed ? 'bg-green-500 border-green-500' : 'border-gray-300'}`}>
+          <div key={t.id} className={`flex items-center gap-3 p-3 rounded-lg border ${t.is_completed ? 'border-blue-100 bg-blue-50/50' : 'border-gray-100'}`}>
+            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${t.is_completed ? 'bg-blue-500 border-blue-500' : 'border-gray-300'}`}>
               {t.is_completed && <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 12 12"><path d="M10 3L5 8.5 2 5.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none"/></svg>}
             </div>
             <span className={`text-sm ${t.is_completed ? 'line-through text-gray-400' : 'text-gray-900'}`}>{t.task}</span>

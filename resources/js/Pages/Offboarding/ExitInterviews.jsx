@@ -27,9 +27,9 @@ export default function ExitInterviews({ interviews, employees }) {
               <Tr key={iv.id}>
                 <Td className="font-medium">{iv.employee?.first_name} {iv.employee?.last_name}</Td>
                 <Td>{new Date(iv.interview_date).toLocaleDateString()}</Td>
-                <Td>{iv.work_environment_rating ? <div className="flex items-center gap-1"><Star size={12} className="text-yellow-400 fill-yellow-400"/><span className="font-medium">{iv.work_environment_rating}/5</span></div> : '—'}</Td>
+                <Td>{iv.work_environment_rating ? <div className="flex items-center gap-1"><Star size={12} className="text-blue-400 fill-yellow-400"/><span className="font-medium">{iv.work_environment_rating}/5</span></div> : '—'}</Td>
                 <Td>{iv.compensation_rating ? `${iv.compensation_rating}/5` : '—'}</Td>
-                <Td>{iv.would_return === null ? '—' : iv.would_return ? <span className="text-green-600 text-xs font-medium">Yes</span> : <span className="text-red-500 text-xs font-medium">No</span>}</Td>
+                <Td>{iv.would_return === null ? '—' : iv.would_return ? <span className="text-blue-600 text-xs font-medium">Yes</span> : <span className="text-blue-500 text-xs font-medium">No</span>}</Td>
                 <Td>{iv.conducted_by?.name || '—'}</Td>
               </Tr>
             ))}
@@ -58,7 +58,7 @@ export default function ExitInterviews({ interviews, employees }) {
           </Select>
           <Textarea label="Comments" value={data.comments} onChange={e => setData('comments', e.target.value)} rows={2}/>
           <div><label className="block text-sm font-medium text-gray-700 mb-1">Interview Date *</label>
-            <input type="date" value={data.interview_date} onChange={e => setData('interview_date', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/></div>
+            <input type="date" value={data.interview_date} onChange={e => setData('interview_date', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/></div>
           <div className="flex justify-end gap-2 pt-2">
             <Button type="button" variant="secondary" onClick={() => setModal(false)}>Cancel</Button>
             <Button type="submit" disabled={processing}>Save</Button>

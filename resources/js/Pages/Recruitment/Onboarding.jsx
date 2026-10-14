@@ -26,18 +26,18 @@ export default function Onboarding({ taskGroups, employees }) {
                   <p className="font-semibold text-gray-900">{empInfo.first_name} {empInfo.last_name}</p>
                   <div className="flex items-center gap-3 mt-1">
                     <div className="flex-1 h-2 bg-gray-100 rounded-full max-w-xs">
-                      <div className="h-2 bg-green-500 rounded-full transition-all" style={{width:`${pct}%`}}/>
+                      <div className="h-2 bg-blue-500 rounded-full transition-all" style={{width:`${pct}%`}}/>
                     </div>
                     <span className="text-xs text-gray-500">{done}/{taskList.length} tasks • {pct}%</span>
                   </div>
                 </div>
-                {pct === 100 && <span className="text-xs px-2.5 py-1 bg-green-100 text-green-700 rounded-full font-medium">✓ Complete</span>}
+                {pct === 100 && <span className="text-xs px-2.5 py-1 bg-blue-100 text-blue-700 rounded-full font-medium">✓ Complete</span>}
               </div>
               <div className="p-4 grid sm:grid-cols-2 gap-2">
                 {taskList.map(task => (
-                  <div key={task.id} className={`flex items-center gap-3 p-3 rounded-lg border transition ${task.is_completed ? 'border-green-100 bg-green-50/50' : 'border-gray-100 hover:border-indigo-200'}`}>
+                  <div key={task.id} className={`flex items-center gap-3 p-3 rounded-lg border transition ${task.is_completed ? 'border-blue-100 bg-blue-50/50' : 'border-gray-100 hover:border-blue-200'}`}>
                     <button onClick={() => !task.is_completed && completeTask(task.id)} className={task.is_completed ? 'cursor-default' : 'cursor-pointer'}>
-                      {task.is_completed ? <CheckSquare size={18} className="text-green-600"/> : <Square size={18} className="text-gray-300"/>}
+                      {task.is_completed ? <CheckSquare size={18} className="text-blue-600"/> : <Square size={18} className="text-gray-300"/>}
                     </button>
                     <span className={`text-sm flex-1 ${task.is_completed ? 'line-through text-gray-400' : 'text-gray-700'}`}>{task.task}</span>
                     {!task.is_completed && (

@@ -44,7 +44,7 @@ export default function Promotions({ promotions, employees, designations, depart
                   <div className="text-xs">
                     <span className="text-gray-400">Rs. {Number(p.from_salary).toLocaleString()}</span>
                     <span className="mx-1 text-gray-300">→</span>
-                    <span className="text-green-700 font-semibold">Rs. {Number(p.to_salary).toLocaleString()}</span>
+                    <span className="text-blue-700 font-semibold">Rs. {Number(p.to_salary).toLocaleString()}</span>
                   </div>
                 </Td>
                 <Td>{new Date(p.effective_date).toLocaleDateString()}</Td>
@@ -73,10 +73,10 @@ export default function Promotions({ promotions, employees, designations, depart
             <div><label className="block text-sm font-medium text-gray-700 mb-1">Current Salary</label>
               <input type="number" value={data.from_salary} readOnly className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-50 text-gray-500"/></div>
             <div><label className="block text-sm font-medium text-gray-700 mb-1">New Salary *</label>
-              <input type="number" value={data.to_salary} onChange={e => setData('to_salary', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/></div>
+              <input type="number" value={data.to_salary} onChange={e => setData('to_salary', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/></div>
           </div>
           <div><label className="block text-sm font-medium text-gray-700 mb-1">Effective Date *</label>
-            <input type="date" value={data.effective_date} onChange={e => setData('effective_date', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/></div>
+            <input type="date" value={data.effective_date} onChange={e => setData('effective_date', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/></div>
           <Textarea label="Reason" value={data.reason} onChange={e => setData('reason', e.target.value)} rows={2}/>
           <div className="flex justify-end gap-2 pt-2">
             <Button type="button" variant="secondary" onClick={() => setModal(false)}>Cancel</Button>

@@ -30,7 +30,7 @@ export default function PayrollShow({ payrollRun }) {
         ].map(s=>(
           <div key={s.l} className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
             <p className="text-xs text-gray-500">{s.l}</p>
-            <p className={`text-xl font-bold mt-1 ${s.c==='green'?'text-green-700':s.c==='red'?'text-red-600':'text-gray-900'}`}>{s.v}</p>
+            <p className={`text-xl font-bold mt-1 ${s.c==='green'?'text-blue-700':s.c==='red'?'text-blue-600':'text-gray-900'}`}>{s.v}</p>
           </div>
         ))}
       </div>
@@ -54,11 +54,11 @@ export default function PayrollShow({ payrollRun }) {
                 <Td>Rs. {Number(item.total_allowances).toLocaleString()}</Td>
                 <Td>{Number(item.overtime_pay) > 0 ? `Rs. ${Number(item.overtime_pay).toLocaleString()}` : '—'}</Td>
                 <Td className="font-medium">Rs. {Number(item.gross_salary).toLocaleString()}</Td>
-                <Td className="text-red-600">-Rs. {Number(item.total_deductions).toLocaleString()}</Td>
-                <Td className="font-bold text-green-700">Rs. {Number(item.net_salary).toLocaleString()}</Td>
+                <Td className="text-blue-600">-Rs. {Number(item.total_deductions).toLocaleString()}</Td>
+                <Td className="font-bold text-blue-700">Rs. {Number(item.net_salary).toLocaleString()}</Td>
                 <Td>
                   <div className="flex gap-1">
-                    <button className="p-1.5 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg"><Download size={13}/></button>
+                    <button className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg"><Download size={13}/></button>
                     <button className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg"><Mail size={13}/></button>
                   </div>
                 </Td>

@@ -32,7 +32,7 @@ export default function Offers({ offers, candidates }) {
                 <Td>{o.offer_expiry ? new Date(o.offer_expiry).toLocaleDateString() : '—'}</Td>
                 <Td><Badge status={o.status}/></Td>
                 <Td><div className="flex gap-1">
-                  <button className="p-1.5 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg"><Download size={13}/></button>
+                  <button className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg"><Download size={13}/></button>
                   <button className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg"><Mail size={13}/></button>
                 </div></Td>
               </Tr>
@@ -46,20 +46,20 @@ export default function Offers({ offers, candidates }) {
         <form onSubmit={submit} className="space-y-4">
           <div className="space-y-1">
             <label className="block text-sm font-medium text-gray-700">Candidate *</label>
-            <select value={data.candidate_id} onChange={e => setData('candidate_id', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+            <select value={data.candidate_id} onChange={e => setData('candidate_id', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
               <option value="">Select Candidate</option>
               {candidates.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
           </div>
           <div><label className="block text-sm font-medium text-gray-700 mb-1">Position *</label>
-            <input value={data.position} onChange={e => setData('position', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/></div>
+            <input value={data.position} onChange={e => setData('position', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/></div>
           <div><label className="block text-sm font-medium text-gray-700 mb-1">Salary (Rs.) *</label>
-            <input type="number" value={data.salary} onChange={e => setData('salary', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/></div>
+            <input type="number" value={data.salary} onChange={e => setData('salary', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/></div>
           <div className="grid grid-cols-2 gap-3">
             <div><label className="block text-sm font-medium text-gray-700 mb-1">Joining Date *</label>
-              <input type="date" value={data.joining_date} onChange={e => setData('joining_date', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/></div>
+              <input type="date" value={data.joining_date} onChange={e => setData('joining_date', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/></div>
             <div><label className="block text-sm font-medium text-gray-700 mb-1">Offer Expiry</label>
-              <input type="date" value={data.offer_expiry} onChange={e => setData('offer_expiry', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/></div>
+              <input type="date" value={data.offer_expiry} onChange={e => setData('offer_expiry', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/></div>
           </div>
           <div className="flex justify-end gap-2 pt-2">
             <Button type="button" variant="secondary" onClick={() => setModal(false)}>Cancel</Button>

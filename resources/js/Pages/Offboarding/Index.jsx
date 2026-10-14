@@ -25,7 +25,7 @@ export default function OffboardingIndex({ resignations, employees, summary }) {
       </div>
 
       <div className="grid grid-cols-2 gap-3 mb-5">
-        {[{l:'Pending',v:summary.pending,c:'bg-yellow-50 text-yellow-700'},{l:'Accepted',v:summary.accepted,c:'bg-red-50 text-red-700'}].map(s=>(
+        {[{l:'Pending',v:summary.pending,c:'bg-blue-50 text-blue-700'},{l:'Accepted',v:summary.accepted,c:'bg-blue-50 text-blue-700'}].map(s=>(
           <div key={s.l} className={`${s.c} rounded-xl p-4 text-center`}><p className="text-2xl font-bold">{s.v}</p><p className="text-xs mt-0.5">{s.l}</p></div>
         ))}
       </div>
@@ -46,12 +46,12 @@ export default function OffboardingIndex({ resignations, employees, summary }) {
                   <Td>{r.notice_period_days}d</Td>
                   <Td><Badge status={r.status}/></Td>
                   <Td>
-                    <button onClick={() => setViewTasks(r)} className="flex items-center gap-1.5 text-xs hover:text-indigo-600">
-                      <div className="w-16 h-1.5 rounded-full bg-gray-100"><div className="h-1.5 rounded-full bg-green-500" style={{width:`${total?((done/total)*100):0}%`}}/></div>
+                    <button onClick={() => setViewTasks(r)} className="flex items-center gap-1.5 text-xs hover:text-blue-600">
+                      <div className="w-16 h-1.5 rounded-full bg-gray-100"><div className="h-1.5 rounded-full bg-blue-500" style={{width:`${total?((done/total)*100):0}%`}}/></div>
                       <span>{done}/{total}</span>
                     </button>
                   </Td>
-                  <Td>{r.status === 'pending' && <button onClick={() => approve(r.id)} className="p-1.5 text-gray-400 hover:text-green-600 hover:bg-green-50 rounded-lg"><Check size={14}/></button>}</Td>
+                  <Td>{r.status === 'pending' && <button onClick={() => approve(r.id)} className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg"><Check size={14}/></button>}</Td>
                 </Tr>
               );
             })}
@@ -72,9 +72,9 @@ export default function OffboardingIndex({ resignations, employees, summary }) {
           </Select>
           <div className="grid grid-cols-2 gap-3">
             <div><label className="block text-sm font-medium text-gray-700 mb-1">Resignation Date</label>
-              <input type="date" value={data.resignation_date} onChange={e => setData('resignation_date', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/></div>
+              <input type="date" value={data.resignation_date} onChange={e => setData('resignation_date', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/></div>
             <div><label className="block text-sm font-medium text-gray-700 mb-1">Last Working Day</label>
-              <input type="date" value={data.last_working_day} onChange={e => setData('last_working_day', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/></div>
+              <input type="date" value={data.last_working_day} onChange={e => setData('last_working_day', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/></div>
           </div>
           <Textarea label="Reason" value={data.reason} onChange={e => setData('reason', e.target.value)} rows={2}/>
           <div className="flex justify-end gap-2 pt-2">
@@ -88,8 +88,8 @@ export default function OffboardingIndex({ resignations, employees, summary }) {
       <Modal open={!!viewTasks} onClose={() => setViewTasks(null)} title={`Clearance — ${viewTasks?.employee?.first_name} ${viewTasks?.employee?.last_name}`} size="sm">
         <div className="space-y-2">
           {viewTasks?.offboarding_tasks?.map(t => (
-            <div key={t.id} className={`flex items-center gap-3 p-3 rounded-lg border ${t.is_completed ? 'border-green-100 bg-green-50' : 'border-gray-100'}`}>
-              {t.is_completed ? <CheckSquare size={16} className="text-green-600"/> : <Square size={16} className="text-gray-300"/>}
+            <div key={t.id} className={`flex items-center gap-3 p-3 rounded-lg border ${t.is_completed ? 'border-blue-100 bg-blue-50' : 'border-gray-100'}`}>
+              {t.is_completed ? <CheckSquare size={16} className="text-blue-600"/> : <Square size={16} className="text-gray-300"/>}
               <span className={`text-sm ${t.is_completed ? 'line-through text-gray-400' : 'text-gray-700'}`}>{t.task}</span>
             </div>
           ))}

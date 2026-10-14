@@ -125,7 +125,10 @@ class AttendanceController extends Controller
     public function shifts(): Response
     {
         return Inertia::render('Attendance/Shifts', [
-            'shifts'      => Shift::where('company_id', $this->companyId())->withCount('assignments')->get(),
+            'shifts'      => Shift::where('company_id', $this->companyId())
+                ->withCount(['assignments as assignments_count' => fn ($query) => $query->whereNull('effective_to')->orWhereDate('effective_to', '>=', today())])
+                ->with(['assignments' => fn ($query) => $query->whereNull('effective_to')->orWhereDate('effective_to', '>=', today())->with('employee:id,first_name,last_name')])
+                ->get(),
             'employees'   => Employee::where('company_id', $this->companyId())->where('status','active')->get(['id','first_name','last_name']),
         ]);
     }
@@ -143,6 +146,78 @@ class AttendanceController extends Controller
         ]);
         Shift::create(array_merge($data, ['company_id' => $this->companyId()]));
         return back()->with('success', 'Shift created.');
+    }
+
+    public function updateShift(Request $request, Shift $shift)
+    {
+        abort_unless($shift->company_id === $this->companyId(), 404);
+
+        $shift->update($request->validate([
+            'name' => 'required|string|max:255',
+            'start_time' => 'required|date_format:H:i',
+            'end_time' => 'required|date_format:H:i',
+            'grace_period' => 'required|integer|min:0',
+            'break_duration' => 'required|integer|min:0',
+            'working_days' => 'required|array|min:1',
+            'working_days.*' => 'required|integer|between:1,7',
+            'color' => ['required', 'regex:/^#[0-9a-fA-F]{6}$/'],
+        ]));
+
+        return back()->with('success', 'Shift updated.');
+    }
+
+    public function destroyShift(Shift $shift)
+    {
+        abort_unless($shift->company_id === $this->companyId(), 404);
+
+        $shift->delete();
+
+        return back()->with('success', 'Shift and its assignment records deleted.');
+    }
+
+    public function assignShift(Request $request, Shift $shift)
+    {
+        abort_unless($shift->company_id === $this->companyId(), 404);
+
+        $data = $request->validate([
+            'employee_ids' => 'required|array|min:1',
+            'employee_ids.*' => 'required|integer|distinct|exists:employees,id',
+            'effective_from' => 'required|date',
+        ]);
+
+        $employees = Employee::where('company_id', $this->companyId())
+            ->where('status', 'active')
+            ->whereIn('id', $data['employee_ids'])
+            ->get();
+
+        if ($employees->count() !== count($data['employee_ids'])) {
+            throw \Illuminate\Validation\ValidationException::withMessages([
+                'employee_ids' => 'Select active employees from your company.',
+            ]);
+        }
+
+        foreach ($employees as $employee) {
+            $currentAssignments = ShiftAssignment::where('employee_id', $employee->id)
+                ->whereDate('effective_from', '<=', $data['effective_from'])
+                ->where(fn ($query) => $query->whereNull('effective_to')->orWhereDate('effective_to', '>=', $data['effective_from']))
+                ->get();
+
+            if ($currentAssignments->contains('shift_id', $shift->id)) {
+                continue;
+            }
+
+            foreach ($currentAssignments as $assignment) {
+                $assignment->update(['effective_to' => \Illuminate\Support\Carbon::parse($data['effective_from'])->subDay()->toDateString()]);
+            }
+
+            ShiftAssignment::create([
+                'employee_id' => $employee->id,
+                'shift_id' => $shift->id,
+                'effective_from' => $data['effective_from'],
+            ]);
+        }
+
+        return back()->with('success', 'Shift assigned to the selected employees.');
     }
 
     public function overtime(): Response

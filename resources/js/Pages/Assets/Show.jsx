@@ -31,7 +31,7 @@ export default function AssetShow({ asset }) {
                 <Tr key={a.id}>
                   <Td className="font-medium">{a.employee?.first_name} {a.employee?.last_name}</Td>
                   <Td>{new Date(a.assigned_date).toLocaleDateString()}</Td>
-                  <Td>{a.return_date ? new Date(a.return_date).toLocaleDateString() : <span className="text-indigo-600 text-xs font-medium">Active</span>}</Td>
+                  <Td>{a.return_date ? new Date(a.return_date).toLocaleDateString() : <span className="text-blue-600 text-xs font-medium">Active</span>}</Td>
                   <Td className="capitalize">{a.condition_on_assign}</Td>
                   <Td className="capitalize">{a.condition_on_return||'—'}</Td>
                 </Tr>

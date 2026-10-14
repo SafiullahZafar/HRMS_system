@@ -22,7 +22,7 @@ export default function Overtime({ overtime }) {
                 <Td>{new Date(r.date).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})}</Td>
                 <Td>{r.check_in||'—'}</Td>
                 <Td>{r.check_out||'—'}</Td>
-                <Td><span className="font-semibold text-indigo-600">{Math.floor(r.overtime_minutes/60)}h {r.overtime_minutes%60}m</span></Td>
+                <Td><span className="font-semibold text-blue-600">{Math.floor(r.overtime_minutes/60)}h {r.overtime_minutes%60}m</span></Td>
               </Tr>
             ))}
           </Tbody>

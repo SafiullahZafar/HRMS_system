@@ -50,6 +50,9 @@ Route::middleware('auth')->group(function () {
     Route::get('attendance/timesheets', [AttendanceController::class, 'timesheets'])->name('attendance.timesheets');
     Route::get('attendance/shifts', [AttendanceController::class, 'shifts'])->name('attendance.shifts');
     Route::post('attendance/shifts', [AttendanceController::class, 'storeShift'])->name('attendance.shifts.store');
+    Route::put('attendance/shifts/{shift}', [AttendanceController::class, 'updateShift'])->name('attendance.shifts.update');
+    Route::delete('attendance/shifts/{shift}', [AttendanceController::class, 'destroyShift'])->name('attendance.shifts.destroy');
+    Route::post('attendance/shifts/{shift}/assign', [AttendanceController::class, 'assignShift'])->name('attendance.shifts.assign');
     Route::get('attendance/overtime', [AttendanceController::class, 'overtime'])->name('attendance.overtime');
     Route::post('attendance/mark', [AttendanceController::class, 'markAttendance'])->name('attendance.mark');
     Route::put('attendance/{attendance}', [AttendanceController::class, 'update'])->name('attendance.update');

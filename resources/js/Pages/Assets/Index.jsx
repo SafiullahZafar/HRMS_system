@@ -27,7 +27,7 @@ export default function AssetsIndex({ assets, employees, categories, summary, fi
       </div>
 
       <div className="grid grid-cols-3 gap-3 mb-5">
-        {[{l:'Available',v:summary.available,c:'bg-green-50 text-green-700'},{l:'Assigned',v:summary.assigned,c:'bg-indigo-50 text-indigo-700'},{l:'Maintenance',v:summary.maintenance,c:'bg-yellow-50 text-yellow-700'}].map(s=>(
+        {[{l:'Available',v:summary.available,c:'bg-blue-50 text-blue-700'},{l:'Assigned',v:summary.assigned,c:'bg-blue-50 text-blue-700'},{l:'Maintenance',v:summary.maintenance,c:'bg-blue-50 text-blue-700'}].map(s=>(
           <div key={s.l} className={`${s.c} rounded-xl p-4 text-center`}><p className="text-2xl font-bold">{s.v}</p><p className="text-xs mt-0.5">{s.l}</p></div>
         ))}
       </div>
@@ -46,9 +46,9 @@ export default function AssetsIndex({ assets, employees, categories, summary, fi
                 <Td>{a.current_assignment?.employee ? `${a.current_assignment.employee.first_name} ${a.current_assignment.employee.last_name}` : '—'}</Td>
                 <Td>
                   <div className="flex gap-1">
-                    <Link href={`/assets/${a.id}`} className="p-1.5 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg"><Eye size={14}/></Link>
-                    {a.status === 'available' && <button onClick={() => setAssignModal(a.id)} className="p-1.5 text-gray-400 hover:text-green-600 hover:bg-green-50 rounded-lg"><UserPlus size={14}/></button>}
-                    {a.status === 'assigned' && <button onClick={() => returnAsset(a.id)} className="p-1.5 text-gray-400 hover:text-orange-600 hover:bg-orange-50 rounded-lg"><RotateCcw size={14}/></button>}
+                    <Link href={`/assets/${a.id}`} className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg"><Eye size={14}/></Link>
+                    {a.status === 'available' && <button onClick={() => setAssignModal(a.id)} className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg"><UserPlus size={14}/></button>}
+                    {a.status === 'assigned' && <button onClick={() => returnAsset(a.id)} className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg"><RotateCcw size={14}/></button>}
                   </div>
                 </Td>
               </Tr>
@@ -63,20 +63,20 @@ export default function AssetsIndex({ assets, employees, categories, summary, fi
         <form onSubmit={submit} className="space-y-4">
           <div className="grid grid-cols-2 gap-3">
             <div className="col-span-2"><label className="block text-sm font-medium text-gray-700 mb-1">Asset Name *</label>
-              <input value={data.name} onChange={e => setData('name', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="HP EliteBook 840"/></div>
+              <input value={data.name} onChange={e => setData('name', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="HP EliteBook 840"/></div>
             <div><label className="block text-sm font-medium text-gray-700 mb-1">Category *</label>
-              <input value={data.category} onChange={e => setData('category', e.target.value)} list="cats" className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="Laptop"/>
+              <input value={data.category} onChange={e => setData('category', e.target.value)} list="cats" className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Laptop"/>
               <datalist id="cats">{['Laptop','Phone','Monitor','SIM','Vehicle','Keyboard','Access Card'].map(c=><option key={c} value={c}/>)}</datalist></div>
             <div><label className="block text-sm font-medium text-gray-700 mb-1">Brand</label>
-              <input value={data.brand} onChange={e => setData('brand', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/></div>
+              <input value={data.brand} onChange={e => setData('brand', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/></div>
             <div><label className="block text-sm font-medium text-gray-700 mb-1">Model</label>
-              <input value={data.model} onChange={e => setData('model', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/></div>
+              <input value={data.model} onChange={e => setData('model', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/></div>
             <div><label className="block text-sm font-medium text-gray-700 mb-1">Serial Number</label>
-              <input value={data.serial_number} onChange={e => setData('serial_number', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/></div>
+              <input value={data.serial_number} onChange={e => setData('serial_number', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/></div>
             <div><label className="block text-sm font-medium text-gray-700 mb-1">Purchase Value</label>
-              <input type="number" value={data.purchase_value} onChange={e => setData('purchase_value', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/></div>
+              <input type="number" value={data.purchase_value} onChange={e => setData('purchase_value', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/></div>
             <div><label className="block text-sm font-medium text-gray-700 mb-1">Purchase Date</label>
-              <input type="date" value={data.purchase_date} onChange={e => setData('purchase_date', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/></div>
+              <input type="date" value={data.purchase_date} onChange={e => setData('purchase_date', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/></div>
           </div>
           <Select label="Condition" value={data.condition} onChange={e => setData('condition', e.target.value)}>
             {['new','good','fair','poor'].map(c => <option key={c} value={c} className="capitalize">{c}</option>)}

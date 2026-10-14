@@ -60,17 +60,17 @@ export default function Interviews({ interviews, candidates, interviewers }) {
             {interviewers.map(i => <option key={i.id} value={i.id}>{i.first_name} {i.last_name}</option>)}
           </Select>
           <div><label className="block text-sm font-medium text-gray-700 mb-1">Date & Time *</label>
-            <input type="datetime-local" value={data.scheduled_at} onChange={e => setData('scheduled_at', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/></div>
+            <input type="datetime-local" value={data.scheduled_at} onChange={e => setData('scheduled_at', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/></div>
           <Select label="Interview Type" value={data.type} onChange={e => setData('type', e.target.value)}>
             <option value="in_person">In Person</option><option value="video">Video</option><option value="phone">Phone</option>
           </Select>
           {data.type === 'in_person' && (
             <div><label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
-              <input value={data.location} onChange={e => setData('location', e.target.value)} placeholder="Office - Conference Room" className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/></div>
+              <input value={data.location} onChange={e => setData('location', e.target.value)} placeholder="Office - Conference Room" className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/></div>
           )}
           {data.type === 'video' && (
             <div><label className="block text-sm font-medium text-gray-700 mb-1">Meeting Link</label>
-              <input type="url" value={data.meeting_link} onChange={e => setData('meeting_link', e.target.value)} placeholder="https://meet.google.com/…" className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/></div>
+              <input type="url" value={data.meeting_link} onChange={e => setData('meeting_link', e.target.value)} placeholder="https://meet.google.com/…" className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/></div>
           )}
           <div className="flex justify-end gap-2 pt-2">
             <Button type="button" variant="secondary" onClick={() => setModal(false)}>Cancel</Button>

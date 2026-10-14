@@ -10,7 +10,7 @@ import { Select, Textarea } from '../../Components/Input';
 import { Plus, ChevronRight } from 'lucide-react';
 
 const STAGES = ['applied','screening','shortlisted','interview','selected','offer_sent','hired','rejected'];
-const STAGE_COLORS = { applied:'bg-blue-100 text-blue-700', screening:'bg-indigo-100 text-indigo-700', shortlisted:'bg-purple-100 text-purple-700', interview:'bg-yellow-100 text-yellow-700', selected:'bg-teal-100 text-teal-700', offer_sent:'bg-orange-100 text-orange-700', hired:'bg-green-100 text-green-700', rejected:'bg-red-100 text-red-700' };
+const STAGE_COLORS = { applied:'bg-blue-100 text-blue-700', screening:'bg-blue-100 text-blue-700', shortlisted:'bg-blue-100 text-blue-700', interview:'bg-blue-100 text-blue-700', selected:'bg-blue-100 text-blue-700', offer_sent:'bg-blue-100 text-blue-700', hired:'bg-blue-100 text-blue-700', rejected:'bg-blue-100 text-blue-700' };
 
 export default function Candidates({ candidates, jobs, pipeline, stages, filters }) {
   const [modal, setModal] = useState(false);
@@ -28,7 +28,7 @@ export default function Candidates({ candidates, jobs, pipeline, stages, filters
       <div className="flex gap-2 overflow-x-auto pb-1 mb-5">
         {STAGES.map(s => (
           <button key={s} onClick={() => router.get('/recruitment/candidates', { ...filters, stage: filters.stage === s ? '' : s }, { preserveState: true })}
-            className={`flex-shrink-0 flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium transition border ${filters.stage === s ? 'border-indigo-400 bg-indigo-600 text-white' : 'border-gray-200 bg-white hover:border-indigo-300'}`}>
+            className={`flex-shrink-0 flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium transition border ${filters.stage === s ? 'border-blue-400 bg-blue-600 text-white' : 'border-gray-200 bg-white hover:border-blue-300'}`}>
             <span className={`inline-block px-1.5 py-0.5 rounded-full text-xs font-bold ${filters.stage === s ? 'bg-white/20' : STAGE_COLORS[s]}`}>{pipeline[s] || 0}</span>
             <span className="capitalize">{s.replace('_',' ')}</span>
           </button>
@@ -51,7 +51,7 @@ export default function Candidates({ candidates, jobs, pipeline, stages, filters
                 </Td>
                 <Td>
                   <select value={c.stage} onChange={e => router.put(`/recruitment/candidates/${c.id}/stage`, { stage: e.target.value }, { preserveState: true })}
-                    className="text-xs px-2 py-1 border border-gray-200 rounded-lg focus:ring-1 focus:ring-indigo-500 focus:outline-none">
+                    className="text-xs px-2 py-1 border border-gray-200 rounded-lg focus:ring-1 focus:ring-blue-500 focus:outline-none">
                     {STAGES.map(s => <option key={s} value={s} className="capitalize">{s.replace('_',' ')}</option>)}
                   </select>
                 </Td>
@@ -67,17 +67,17 @@ export default function Candidates({ candidates, jobs, pipeline, stages, filters
         <form onSubmit={submit} className="space-y-4">
           <div className="grid grid-cols-2 gap-3">
             <div><label className="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
-              <input value={data.name} onChange={e => setData('name', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/></div>
+              <input value={data.name} onChange={e => setData('name', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/></div>
             <div><label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-              <input type="email" value={data.email} onChange={e => setData('email', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/></div>
+              <input type="email" value={data.email} onChange={e => setData('email', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/></div>
             <div><label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
-              <input value={data.phone} onChange={e => setData('phone', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/></div>
+              <input value={data.phone} onChange={e => setData('phone', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/></div>
             <div><label className="block text-sm font-medium text-gray-700 mb-1">Source</label>
-              <input value={data.source} onChange={e => setData('source', e.target.value)} placeholder="LinkedIn, Rozee.pk…" className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/></div>
+              <input value={data.source} onChange={e => setData('source', e.target.value)} placeholder="LinkedIn, Rozee.pk…" className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/></div>
             <div><label className="block text-sm font-medium text-gray-700 mb-1">Experience (years)</label>
-              <input type="number" value={data.experience_years} onChange={e => setData('experience_years', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/></div>
+              <input type="number" value={data.experience_years} onChange={e => setData('experience_years', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/></div>
             <div><label className="block text-sm font-medium text-gray-700 mb-1">Expected Salary</label>
-              <input type="number" value={data.expected_salary} onChange={e => setData('expected_salary', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/></div>
+              <input type="number" value={data.expected_salary} onChange={e => setData('expected_salary', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/></div>
           </div>
           <Select label="Job Opening" value={data.job_opening_id} onChange={e => setData('job_opening_id', e.target.value)}>
             <option value="">Select Job</option>

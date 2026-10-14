@@ -8,7 +8,7 @@ function Section({ icon: Icon, title, children }) {
   return (
     <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
       <div className="flex items-center gap-2.5 px-5 py-4 border-b border-gray-100 bg-gray-50/50">
-        <Icon size={18} className="text-indigo-600"/>
+        <Icon size={18} className="text-blue-600"/>
         <h3 className="font-semibold text-gray-900 text-sm">{title}</h3>
       </div>
       <div className="p-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

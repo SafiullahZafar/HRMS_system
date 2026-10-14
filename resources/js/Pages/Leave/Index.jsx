@@ -29,7 +29,7 @@ export default function LeaveIndex({ requests, leaveTypes, employees, filters, s
 
       {/* Summary */}
       <div className="grid grid-cols-3 gap-3 mb-5">
-        {[{l:'Pending',v:summary.pending,c:'text-yellow-600 bg-yellow-50'},{l:'Approved',v:summary.approved,c:'text-green-600 bg-green-50'},{l:'Rejected',v:summary.rejected,c:'text-red-600 bg-red-50'}].map(s=>(
+        {[{l:'Pending',v:summary.pending,c:'text-blue-600 bg-blue-50'},{l:'Approved',v:summary.approved,c:'text-blue-600 bg-blue-50'},{l:'Rejected',v:summary.rejected,c:'text-blue-600 bg-blue-50'}].map(s=>(
           <div key={s.l} className={`${s.c} rounded-xl p-4 text-center`}>
             <p className={`text-3xl font-bold ${s.c.split(' ')[0]}`}>{s.v}</p>
             <p className="text-xs text-gray-500 mt-1">{s.l}</p>
@@ -40,12 +40,12 @@ export default function LeaveIndex({ requests, leaveTypes, employees, filters, s
       {/* Filters */}
       <div className="bg-white rounded-xl border border-gray-200 p-3 mb-4 flex flex-wrap gap-3 shadow-sm">
         <select defaultValue={filters.status||''} onChange={e => router.get('/leave',{...filters,status:e.target.value},{preserveState:true})}
-          className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+          className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
           <option value="">All Status</option>
           {['pending','approved','rejected','cancelled'].map(s=><option key={s} value={s} className="capitalize">{s}</option>)}
         </select>
         <select defaultValue={filters.leave_type_id||''} onChange={e => router.get('/leave',{...filters,leave_type_id:e.target.value},{preserveState:true})}
-          className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+          className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
           <option value="">All Types</option>
           {leaveTypes.map(t=><option key={t.id} value={t.id}>{t.name}</option>)}
         </select>
@@ -77,8 +77,8 @@ export default function LeaveIndex({ requests, leaveTypes, employees, filters, s
                 <Td>
                   {r.status === 'pending' && (
                     <div className="flex gap-1">
-                      <button onClick={()=>approve(r.id)} className="p-1.5 text-green-600 hover:bg-green-50 rounded-lg transition" title="Approve"><Check size={15}/></button>
-                      <button onClick={()=>setRejectModal(r.id)} className="p-1.5 text-red-600 hover:bg-red-50 rounded-lg transition" title="Reject"><X size={15}/></button>
+                      <button onClick={()=>approve(r.id)} className="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg transition" title="Approve"><Check size={15}/></button>
+                      <button onClick={()=>setRejectModal(r.id)} className="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg transition" title="Reject"><X size={15}/></button>
                     </div>
                   )}
                 </Td>
@@ -105,9 +105,9 @@ export default function LeaveIndex({ requests, leaveTypes, employees, filters, s
           </Select>
           <div className="grid grid-cols-2 gap-3">
             <div><label className="block text-sm font-medium text-gray-700 mb-1">From *</label>
-              <input type="date" value={data.from_date} onChange={e=>setData('from_date',e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/></div>
+              <input type="date" value={data.from_date} onChange={e=>setData('from_date',e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/></div>
             <div><label className="block text-sm font-medium text-gray-700 mb-1">To *</label>
-              <input type="date" value={data.to_date} onChange={e=>setData('to_date',e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/></div>
+              <input type="date" value={data.to_date} onChange={e=>setData('to_date',e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/></div>
           </div>
           <Select label="Day Type" value={data.day_type} onChange={e=>setData('day_type',e.target.value)}>
             <option value="full">Full Day</option><option value="half_morning">Half Day (Morning)</option><option value="half_afternoon">Half Day (Afternoon)</option>

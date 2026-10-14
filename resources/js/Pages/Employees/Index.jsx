@@ -40,19 +40,19 @@ export default function EmployeesIndex({ employees, departments, filters }) {
             <Search size={15} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400"/>
             <input value={search} onChange={e => setSearch(e.target.value)} onKeyDown={e => e.key==='Enter' && applyFilters()}
               placeholder="Name, ID, email…"
-              className="w-full pl-8 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/>
+              className="w-full pl-8 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/>
           </div>
         </div>
         <div className="w-44">
           <label className="block text-xs font-medium text-gray-600 mb-1">Department</label>
-          <select value={dept} onChange={e => setDept(e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+          <select value={dept} onChange={e => setDept(e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
             <option value="">All Departments</option>
             {departments.map(d => <option key={d.id} value={d.id}>{d.name}</option>)}
           </select>
         </div>
         <div className="w-36">
           <label className="block text-xs font-medium text-gray-600 mb-1">Status</label>
-          <select value={status} onChange={e => setStatus(e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+          <select value={status} onChange={e => setStatus(e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
             <option value="">All Status</option>
             {['active','inactive','on_leave','terminated','resigned'].map(s => <option key={s} value={s} className="capitalize">{s.replace('_',' ')}</option>)}
           </select>
@@ -84,7 +84,7 @@ export default function EmployeesIndex({ employees, departments, filters }) {
                   <div className="flex items-center gap-3">
                     <Avatar name={`${emp.first_name} ${emp.last_name}`} size="sm"/>
                     <div>
-                      <Link href={`/employees/${emp.id}/profile`} className="font-medium text-gray-900 hover:text-indigo-600 transition text-sm">
+                      <Link href={`/employees/${emp.id}/profile`} className="font-medium text-gray-900 hover:text-blue-600 transition text-sm">
                         {emp.first_name} {emp.last_name}
                       </Link>
                       <p className="text-xs text-gray-400">{emp.employee_id}</p>
@@ -98,10 +98,10 @@ export default function EmployeesIndex({ employees, departments, filters }) {
                 <Td><Badge status={emp.status}/></Td>
                 <Td>
                   <div className="flex items-center justify-end gap-1">
-                    <Link href={`/employees/${emp.id}/profile`} className="p-1.5 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition" title="View"><Eye size={15}/></Link>
+                    <Link href={`/employees/${emp.id}/profile`} className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition" title="View"><Eye size={15}/></Link>
                     <Link href={`/employees/${emp.id}/edit`} className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition" title="Edit"><Edit size={15}/></Link>
-                    <Link href={`/attendance?employee_id=${emp.id}`} className="p-1.5 text-gray-400 hover:text-green-600 hover:bg-green-50 rounded-lg transition" title="Attendance"><Clock size={15}/></Link>
-                    <Link href={`/documents?employee_id=${emp.id}`} className="p-1.5 text-gray-400 hover:text-orange-600 hover:bg-orange-50 rounded-lg transition" title="Documents"><FileText size={15}/></Link>
+                    <Link href={`/attendance?employee_id=${emp.id}`} className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition" title="Attendance"><Clock size={15}/></Link>
+                    <Link href={`/documents?employee_id=${emp.id}`} className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition" title="Documents"><FileText size={15}/></Link>
                   </div>
                 </Td>
               </Tr>

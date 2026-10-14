@@ -92,10 +92,10 @@ function NavItem({ item, currentPath }) {
         <button
           onClick={() => setOpen(o => !o)}
           className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-            hasActive ? 'bg-indigo-50 text-indigo-700' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+            hasActive ? 'bg-blue-50 text-blue-700' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
           }`}
         >
-          <item.icon size={18} className={hasActive ? 'text-indigo-600' : 'text-gray-400'} />
+          <item.icon size={18} className={hasActive ? 'text-blue-600' : 'text-gray-400'} />
           <span className="flex-1 text-left">{item.label}</span>
           {open ? <ChevronDown size={15} /> : <ChevronRight size={15} />}
         </button>
@@ -107,7 +107,7 @@ function NavItem({ item, currentPath }) {
                 href={child.href}
                 className={`block px-3 py-2 rounded-lg text-sm transition-colors ${
                   isActive(child.href)
-                    ? 'bg-indigo-600 text-white font-medium'
+                    ? 'bg-blue-600 text-white font-medium'
                     : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
                 }`}
               >
@@ -125,7 +125,7 @@ function NavItem({ item, currentPath }) {
       href={item.href}
       className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
         isActive(item.href)
-          ? 'bg-indigo-600 text-white'
+          ? 'bg-blue-600 text-white'
           : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
       }`}
     >
@@ -152,7 +152,7 @@ export default function AppLayout({ children, title }) {
       <div className={`${mobile ? 'relative z-10 w-72' : 'w-64'} bg-white border-r border-gray-200 flex flex-col h-full`}>
         {/* Logo */}
         <div className="flex items-center gap-2.5 px-5 py-4 border-b border-gray-100">
-          <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center">
             <Users size={18} className="text-white" />
           </div>
           <div>
@@ -176,7 +176,7 @@ export default function AppLayout({ children, title }) {
         {/* User */}
         <div className="border-t border-gray-100 p-3">
           <div className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-gray-50 cursor-pointer" onClick={() => setUserMenuOpen(o => !o)}>
-            <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-semibold text-sm">
+            <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-blue-700 font-semibold text-sm">
               {auth.user?.name?.[0]?.toUpperCase()}
             </div>
             <div className="flex-1 min-w-0">
@@ -198,7 +198,7 @@ export default function AppLayout({ children, title }) {
   );
 
   return (
-    <div className="flex h-screen bg-gray-50 overflow-hidden">
+    <div className="flex h-screen bg-white overflow-hidden">
       {/* Desktop sidebar */}
       <div className="hidden lg:flex lg:flex-shrink-0">
         <Sidebar />
@@ -226,7 +226,7 @@ export default function AppLayout({ children, title }) {
             <input
               type="text"
               placeholder="Search..."
-              className="pl-9 pr-4 py-1.5 text-sm bg-gray-100 rounded-lg border-0 focus:ring-2 focus:ring-indigo-500 focus:bg-white transition w-52"
+              className="pl-9 pr-4 py-1.5 text-sm bg-gray-100 rounded-lg border-0 focus:ring-2 focus:ring-blue-500 focus:bg-white transition w-52"
             />
           </div>
 
@@ -237,7 +237,7 @@ export default function AppLayout({ children, title }) {
           </button>
 
           {/* Avatar */}
-          <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-semibold text-sm cursor-pointer">
+          <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-blue-700 font-semibold text-sm cursor-pointer">
             {auth.user?.name?.[0]?.toUpperCase()}
           </div>
         </header>

@@ -8,7 +8,7 @@ import Pagination from '../../Components/Pagination';
 import { Select, Textarea } from '../../Components/Input';
 import { Plus, Megaphone, Trash2 } from 'lucide-react';
 
-const PRIORITY_COLORS = { high: 'bg-red-100 text-red-700', medium: 'bg-yellow-100 text-yellow-700', low: 'bg-green-100 text-green-700' };
+const PRIORITY_COLORS = { high: 'bg-blue-100 text-blue-700', medium: 'bg-blue-100 text-blue-700', low: 'bg-blue-100 text-blue-700' };
 
 export default function AnnouncementsIndex({ announcements }) {
   const [modal, setModal] = useState(false);
@@ -26,14 +26,14 @@ export default function AnnouncementsIndex({ announcements }) {
         {announcements.data?.map(ann => (
           <div key={ann.id} className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 hover:shadow-md transition">
             <div className="flex items-start gap-4">
-              <div className="p-2.5 bg-indigo-50 rounded-xl flex-shrink-0"><Megaphone size={18} className="text-indigo-600"/></div>
+              <div className="p-2.5 bg-blue-50 rounded-xl flex-shrink-0"><Megaphone size={18} className="text-blue-600"/></div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-start justify-between gap-3">
                   <h3 className="font-semibold text-gray-900">{ann.title}</h3>
                   <div className="flex items-center gap-2 flex-shrink-0">
                     <span className={`text-xs px-2 py-0.5 rounded-full font-medium capitalize ${PRIORITY_COLORS[ann.priority]||'bg-gray-100 text-gray-600'}`}>{ann.priority}</span>
-                    {ann.is_published ? <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">Published</span> : <span className="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">Draft</span>}
-                    <button onClick={() => router.delete(`/announcements/${ann.id}`, {preserveState:true})} className="p-1.5 text-gray-300 hover:text-red-500 hover:bg-red-50 rounded-lg"><Trash2 size={13}/></button>
+                    {ann.is_published ? <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-medium">Published</span> : <span className="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">Draft</span>}
+                    <button onClick={() => router.delete(`/announcements/${ann.id}`, {preserveState:true})} className="p-1.5 text-gray-300 hover:text-blue-500 hover:bg-blue-50 rounded-lg"><Trash2 size={13}/></button>
                   </div>
                 </div>
                 <p className="text-sm text-gray-600 mt-1.5 leading-relaxed">{ann.content}</p>
@@ -57,7 +57,7 @@ export default function AnnouncementsIndex({ announcements }) {
       <Modal open={modal} onClose={() => setModal(false)} title="New Announcement">
         <form onSubmit={submit} className="space-y-4">
           <div><label className="block text-sm font-medium text-gray-700 mb-1">Title *</label>
-            <input value={data.title} onChange={e => setData('title', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"/></div>
+            <input value={data.title} onChange={e => setData('title', e.target.value)} className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/></div>
           <Textarea label="Content *" value={data.content} onChange={e => setData('content', e.target.value)} rows={4}/>
           <div className="grid grid-cols-2 gap-3">
             <Select label="Audience" value={data.audience} onChange={e => setData('audience', e.target.value)}>
@@ -68,7 +68,7 @@ export default function AnnouncementsIndex({ announcements }) {
             </Select>
           </div>
           <label className="flex items-center gap-2 text-sm cursor-pointer">
-            <input type="checkbox" checked={data.is_published} onChange={e => setData('is_published', e.target.checked)} className="rounded text-indigo-600"/>
+            <input type="checkbox" checked={data.is_published} onChange={e => setData('is_published', e.target.checked)} className="rounded text-blue-600"/>
             Publish immediately
           </label>
           <div className="flex justify-end gap-2 pt-2">

@@ -12,8 +12,8 @@ export default function PerformanceIndex({ reviews, promotions, warnings }) {
         {/* Recent Reviews */}
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5">
           <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2"><TrendingUp size={16} className="text-indigo-600"/><h3 className="font-semibold text-gray-900 text-sm">Recent Reviews</h3></div>
-            <Link href="/performance/reviews" className="text-xs text-indigo-600 flex items-center gap-1">All <ArrowRight size={11}/></Link>
+            <div className="flex items-center gap-2"><TrendingUp size={16} className="text-blue-600"/><h3 className="font-semibold text-gray-900 text-sm">Recent Reviews</h3></div>
+            <Link href="/performance/reviews" className="text-xs text-blue-600 flex items-center gap-1">All <ArrowRight size={11}/></Link>
           </div>
           <div className="space-y-3">
             {reviews.map(r => (
@@ -23,7 +23,7 @@ export default function PerformanceIndex({ reviews, promotions, warnings }) {
                   <p className="text-sm font-medium text-gray-900 truncate">{r.employee?.first_name} {r.employee?.last_name}</p>
                   <p className="text-xs text-gray-400 capitalize">{r.period} {r.review_year}</p>
                 </div>
-                {r.overall_rating && <div className="flex items-center gap-0.5 bg-indigo-50 px-2 py-0.5 rounded-full"><span className="text-indigo-700 font-bold text-sm">{r.overall_rating}</span><span className="text-indigo-400 text-xs">/5</span></div>}
+                {r.overall_rating && <div className="flex items-center gap-0.5 bg-blue-50 px-2 py-0.5 rounded-full"><span className="text-blue-700 font-bold text-sm">{r.overall_rating}</span><span className="text-blue-400 text-xs">/5</span></div>}
               </div>
             ))}
             {reviews.length === 0 && <p className="text-sm text-gray-400 text-center py-4">No reviews yet</p>}
@@ -33,8 +33,8 @@ export default function PerformanceIndex({ reviews, promotions, warnings }) {
         {/* Promotions */}
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5">
           <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2"><Award size={16} className="text-green-600"/><h3 className="font-semibold text-gray-900 text-sm">Recent Promotions</h3></div>
-            <Link href="/performance/promotions" className="text-xs text-indigo-600 flex items-center gap-1">All <ArrowRight size={11}/></Link>
+            <div className="flex items-center gap-2"><Award size={16} className="text-blue-600"/><h3 className="font-semibold text-gray-900 text-sm">Recent Promotions</h3></div>
+            <Link href="/performance/promotions" className="text-xs text-blue-600 flex items-center gap-1">All <ArrowRight size={11}/></Link>
           </div>
           <div className="space-y-3">
             {promotions.map(p => (
@@ -54,8 +54,8 @@ export default function PerformanceIndex({ reviews, promotions, warnings }) {
         {/* Warnings */}
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5">
           <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2"><AlertTriangle size={16} className="text-red-500"/><h3 className="font-semibold text-gray-900 text-sm">Recent Warnings</h3></div>
-            <Link href="/performance/warnings" className="text-xs text-indigo-600 flex items-center gap-1">All <ArrowRight size={11}/></Link>
+            <div className="flex items-center gap-2"><AlertTriangle size={16} className="text-blue-500"/><h3 className="font-semibold text-gray-900 text-sm">Recent Warnings</h3></div>
+            <Link href="/performance/warnings" className="text-xs text-blue-600 flex items-center gap-1">All <ArrowRight size={11}/></Link>
           </div>
           <div className="space-y-3">
             {warnings.map(w => (

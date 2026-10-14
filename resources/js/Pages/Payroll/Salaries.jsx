@@ -20,7 +20,7 @@ export default function Salaries({ employees }) {
                   <Td>{emp.designation?.name}</Td>
                   <Td><Badge status={emp.employment_type}/></Td>
                   <Td className="font-semibold">Rs. {Number(emp.basic_salary).toLocaleString()}</Td>
-                  <Td className="font-semibold text-indigo-700">Rs. {Math.round(gross).toLocaleString()}</Td>
+                  <Td className="font-semibold text-blue-700">Rs. {Math.round(gross).toLocaleString()}</Td>
                 </Tr>
               );
             })}
