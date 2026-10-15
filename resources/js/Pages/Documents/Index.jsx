@@ -55,7 +55,7 @@ export default function DocumentsIndex({ documents, employees, categories, filte
                 <Td>{d.is_verified ? <span className="flex items-center gap-1 text-blue-600 text-xs"><Shield size={12}/> Verified</span> : <span className="text-gray-400 text-xs">—</span>}</Td>
                 <Td className="text-xs text-gray-500">{new Date(d.created_at).toLocaleDateString()}</Td>
                 <Td><div className="flex gap-1">
-                  <button className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg"><Download size={13}/></button>
+                  <button type="button" disabled title="Download is not available yet" className="p-1.5 text-gray-400 rounded-lg disabled:cursor-not-allowed disabled:opacity-50"><Download size={13}/></button>
                   <button onClick={() => router.delete(`/documents/${d.id}`, {preserveState:true})} className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg"><Trash2 size={13}/></button>
                 </div></Td>
               </Tr>

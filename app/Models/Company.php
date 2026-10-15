@@ -14,6 +14,7 @@ class Company extends Model
 
     protected $casts = ['is_active' => 'boolean'];
 
+    public function users(): HasMany { return $this->hasMany(User::class); }
     public function branches(): HasMany { return $this->hasMany(Branch::class); }
     public function departments(): HasMany { return $this->hasMany(Department::class); }
     public function designations(): HasMany { return $this->hasMany(Designation::class); }

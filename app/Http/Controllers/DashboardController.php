@@ -14,9 +14,13 @@ use Inertia\Response;
 
 class DashboardController extends Controller
 {
-    public function index(): Response
+    public function index()
     {
-        $companyId = Auth::user()->company_id;
+        if (Auth::user()?->isSuperAdmin() && !session('current_company_id')) {
+            return redirect()->route('super-admin.owners');
+        }
+
+        $companyId = $this->companyId();
         $today = now()->toDateString();
 
         $totalEmployees  = Employee::where('company_id', $companyId)->where('status', 'active')->count();

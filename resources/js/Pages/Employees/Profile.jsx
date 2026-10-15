@@ -49,8 +49,8 @@ export default function EmployeeProfile({ employee }) {
             </div>
             <div className="flex gap-2">
               <Link href={`/employees/${employee.id}/edit`}><Button variant="secondary" size="sm"><Edit size={14}/> Edit</Button></Link>
-              <Button variant="secondary" size="sm">Promote</Button>
-              <Button variant="secondary" size="sm">Salary Revision</Button>
+              <Button variant="secondary" size="sm" disabled title="Promotion workflow is not available yet">Promote</Button>
+              <Button variant="secondary" size="sm" disabled title="Salary revision workflow is not available yet">Salary Revision</Button>
             </div>
           </div>
         </div>
@@ -255,7 +255,7 @@ function DocumentsTab({ docs = [] }) {
             <p className="text-sm font-medium text-gray-900 truncate">{d.title}</p>
             <p className="text-xs text-gray-400 capitalize">{d.category}</p>
           </div>
-          <Button variant="ghost" size="xs">View</Button>
+          <Button variant="ghost" size="xs" disabled title="Viewing this item is not available yet">View</Button>
         </div>
       ))}
       {docs.length === 0 && <div className="col-span-3 text-center py-8 text-gray-400 text-sm">No documents uploaded</div>}

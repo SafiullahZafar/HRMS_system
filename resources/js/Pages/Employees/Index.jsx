@@ -26,8 +26,8 @@ export default function EmployeesIndex({ employees, departments, filters }) {
           <p className="text-sm text-gray-500">{employees.total} total employees</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="secondary" size="sm"><Upload size={15}/> Import</Button>
-          <Button variant="secondary" size="sm"><Download size={15}/> Export</Button>
+          <Button variant="secondary" size="sm" disabled title="Import is not available yet"><Upload size={15}/> Import</Button>
+          <Button variant="secondary" size="sm" disabled title="Export is not available yet"><Download size={15}/> Export</Button>
           <Link href="/employees/create"><Button size="sm"><Plus size={15}/> Add Employee</Button></Link>
         </div>
       </div>

@@ -16,7 +16,6 @@ use Inertia\Response;
 
 class RecruitmentController extends Controller
 {
-    private function companyId(): int { return Auth::user()->company_id; }
 
     public function jobs(): Response
     {

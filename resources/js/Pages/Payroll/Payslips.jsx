@@ -20,8 +20,8 @@ export default function Payslips({ payslips }) {
                 <Td className="font-bold text-blue-700">Rs. {Number(ps.payroll_item?.net_salary || 0).toLocaleString()}</Td>
                 <Td>{ps.is_emailed ? <span className="text-blue-600 text-xs font-medium">✓ Sent</span> : <span className="text-gray-400 text-xs">Pending</span>}</Td>
                 <Td><div className="flex gap-1">
-                  <button className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg"><Download size={13}/></button>
-                  <button className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg"><Mail size={13}/></button>
+                  <button type="button" disabled title="Payslip download is not available yet" className="p-1.5 text-gray-400 rounded-lg disabled:cursor-not-allowed disabled:opacity-50"><Download size={13}/></button>
+                  <button type="button" disabled title="Payslip email is not available yet" className="p-1.5 text-gray-400 rounded-lg disabled:cursor-not-allowed disabled:opacity-50"><Mail size={13}/></button>
                 </div></Td>
               </Tr>
             ))}

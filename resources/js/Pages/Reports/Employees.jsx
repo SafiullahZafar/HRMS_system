@@ -12,7 +12,7 @@ export default function EmployeesReport({ employees }) {
       <div className="flex items-center gap-3 mb-5">
         <Link href="/reports" className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg"><ArrowLeft size={18}/></Link>
         <div className="flex-1"><h2 className="text-xl font-bold text-gray-900">Employee Report</h2><p className="text-sm text-gray-500">{employees.length} employees</p></div>
-        <Button size="sm" variant="secondary"><Download size={14}/> Export Excel</Button>
+        <Button size="sm" variant="secondary" disabled title="Export is not available yet"><Download size={14}/> Export Excel</Button>
       </div>
       <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
         <Table>

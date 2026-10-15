@@ -4,12 +4,14 @@ import {
   LayoutDashboard, Users, Clock, Calendar, DollarSign, Briefcase,
   TrendingUp, Package, FileText, UserMinus, BarChart2, Megaphone,
   Settings, ChevronDown, ChevronRight, Bell, Search, Menu, X,
-  LogOut, User, Building2, ChevronUp, UserCheck, Layers,
+  LogOut, ShieldCheck, Building2, Activity, ChevronUp, Sparkles,
+  ArrowLeftRight, AlertCircle,
 } from 'lucide-react';
 
-const navItems = [
-  { label: 'Dashboard', icon: LayoutDashboard, href: '/' },
+const baseNavItems = [
+  { moduleKey: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, href: '/' },
   {
+    moduleKey: 'employees',
     label: 'Employees', icon: Users, children: [
       { label: 'All Employees',  href: '/employees' },
       { label: 'Add Employee',   href: '/employees/create' },
@@ -19,6 +21,7 @@ const navItems = [
     ],
   },
   {
+    moduleKey: 'recruitment',
     label: 'Recruitment', icon: Briefcase, children: [
       { label: 'Job Openings',  href: '/recruitment/jobs' },
       { label: 'Candidates',    href: '/recruitment/candidates' },
@@ -28,6 +31,7 @@ const navItems = [
     ],
   },
   {
+    moduleKey: 'attendance',
     label: 'Attendance', icon: Clock, children: [
       { label: 'Daily Attendance', href: '/attendance' },
       { label: 'Timesheets',       href: '/attendance/timesheets' },
@@ -36,6 +40,7 @@ const navItems = [
     ],
   },
   {
+    moduleKey: 'leave',
     label: 'Leave', icon: Calendar, children: [
       { label: 'Leave Requests', href: '/leave' },
       { label: 'Leave Calendar', href: '/leave/calendar' },
@@ -44,6 +49,7 @@ const navItems = [
     ],
   },
   {
+    moduleKey: 'payroll',
     label: 'Payroll', icon: DollarSign, children: [
       { label: 'Payroll Runs',  href: '/payroll' },
       { label: 'Salaries',      href: '/payroll/salaries' },
@@ -53,32 +59,36 @@ const navItems = [
     ],
   },
   {
+    moduleKey: 'performance',
     label: 'Performance', icon: TrendingUp, children: [
-      { label: 'Reviews',     href: '/performance/reviews' },
-      { label: 'Goals / KPIs',href: '/performance/goals' },
-      { label: 'Promotions',  href: '/performance/promotions' },
-      { label: 'Warnings',    href: '/performance/warnings' },
+      { label: 'Reviews',      href: '/performance/reviews' },
+      { label: 'Goals / KPIs', href: '/performance/goals' },
+      { label: 'Promotions',   href: '/performance/promotions' },
+      { label: 'Warnings',     href: '/performance/warnings' },
     ],
   },
   {
+    moduleKey: 'assets',
     label: 'Assets', icon: Package, children: [
       { label: 'Company Assets', href: '/assets' },
     ],
   },
   {
+    moduleKey: 'documents',
     label: 'Documents', icon: FileText, children: [
       { label: 'Employee Files', href: '/documents' },
     ],
   },
   {
+    moduleKey: 'offboarding',
     label: 'Offboarding', icon: UserMinus, children: [
       { label: 'Resignations',    href: '/offboarding' },
       { label: 'Exit Interviews', href: '/offboarding/exit-interviews' },
     ],
   },
-  { label: 'Reports',       icon: BarChart2,  href: '/reports' },
-  { label: 'Announcements', icon: Megaphone,  href: '/announcements' },
-  { label: 'Settings',      icon: Settings,   href: '/settings' },
+  { moduleKey: 'reports',       label: 'Reports',       icon: BarChart2,  href: '/reports' },
+  { moduleKey: 'announcements', label: 'Announcements', icon: Megaphone,  href: '/announcements' },
+  { moduleKey: 'settings',      label: 'Settings',      icon: Settings,   href: '/settings' },
 ];
 
 function NavItem({ item, currentPath }) {
@@ -91,8 +101,8 @@ function NavItem({ item, currentPath }) {
       <div>
         <button
           onClick={() => setOpen(o => !o)}
-          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-            hasActive ? 'bg-blue-50 text-blue-700' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+            hasActive ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
           }`}
         >
           <item.icon size={18} className={hasActive ? 'text-blue-600' : 'text-gray-400'} />
@@ -100,14 +110,14 @@ function NavItem({ item, currentPath }) {
           {open ? <ChevronDown size={15} /> : <ChevronRight size={15} />}
         </button>
         {open && (
-          <div className="ml-9 mt-0.5 space-y-0.5">
+          <div className="ml-9 mt-0.5 space-y-0.5 border-l-2 border-gray-100 pl-2">
             {item.children.map(child => (
               <Link
                 key={child.href}
                 href={child.href}
                 className={`block px-3 py-2 rounded-lg text-sm transition-colors ${
                   isActive(child.href)
-                    ? 'bg-blue-600 text-white font-medium'
+                    ? 'bg-blue-600 text-white font-medium shadow-sm'
                     : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
                 }`}
               >
@@ -123,9 +133,9 @@ function NavItem({ item, currentPath }) {
   return (
     <Link
       href={item.href}
-      className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+      className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
         isActive(item.href)
-          ? 'bg-blue-600 text-white'
+          ? 'bg-blue-600 text-white font-semibold shadow-sm'
           : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
       }`}
     >
@@ -136,58 +146,164 @@ function NavItem({ item, currentPath }) {
 }
 
 export default function AppLayout({ children, title }) {
-  const { auth, flash } = usePage().props;
+  const { auth, flash, current_workspace, is_super_admin_viewing_other } = usePage().props;
   const { url } = usePage();
-  const [sidebarOpen, setSidebarOpen] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [superAdminMenuOpen, setSuperAdminMenuOpen] = useState(true);
 
   const currentPath = url.split('?')[0];
 
   const handleLogout = () => router.post('/logout');
+  const handleResetWorkspace = () => router.post('/super-admin/reset-workspace');
+
+  // Filter navigation items by user's allowed modules
+  const allowedModules = auth.user?.allowed_modules ?? ['*'];
+  const isSuperAdmin = Boolean(auth.user?.is_super_admin);
+  const isDemo = Boolean(auth.user?.is_demo);
+
+  const filteredNavItems = baseNavItems.filter(item => {
+    if (isSuperAdmin) return true;
+    if (allowedModules.includes('*')) return true;
+    return allowedModules.includes(item.moduleKey);
+  });
+
+  const isSuperAdminActive = currentPath.startsWith('/super-admin');
 
   const Sidebar = ({ mobile = false }) => (
     <aside className={`${mobile ? 'fixed inset-0 z-50 flex' : 'flex-shrink-0'}`}>
-      {mobile && <div className="fixed inset-0 bg-black/50" onClick={() => setMobileOpen(false)} />}
+      {mobile && <div className="fixed inset-0 bg-black/50 backdrop-blur-xs" onClick={() => setMobileOpen(false)} />}
       <div className={`${mobile ? 'relative z-10 w-72' : 'w-64'} bg-white border-r border-gray-200 flex flex-col h-full`}>
-        {/* Logo */}
+        {/* Brand Header */}
         <div className="flex items-center gap-2.5 px-5 py-4 border-b border-gray-100">
-          <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center">
-            <Users size={18} className="text-white" />
+          <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center shadow-sm">
+            <Users size={20} className="text-white" />
           </div>
-          <div>
-            <span className="font-bold text-gray-900 text-base">PeopleFlow</span>
-            <p className="text-xs text-gray-400 leading-none">HRMS</p>
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-1.5">
+              <span className="font-bold text-gray-900 text-base tracking-tight">PeopleFlow</span>
+              {isSuperAdmin && (
+                <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800 uppercase">
+                  Super
+                </span>
+              )}
+              {isDemo && (
+                <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 uppercase">
+                  Demo
+                </span>
+              )}
+            </div>
+            <p className="text-xs text-gray-400 truncate leading-none mt-0.5">
+              {isSuperAdmin && !is_super_admin_viewing_other ? 'Super Admin Portal' : (current_workspace?.name ?? 'HR Management')}
+            </p>
           </div>
           {mobile && (
-            <button onClick={() => setMobileOpen(false)} className="ml-auto text-gray-400 hover:text-gray-600">
+            <button onClick={() => setMobileOpen(false)} className="ml-auto text-gray-400 hover:text-gray-600 p-1">
               <X size={20} />
             </button>
           )}
         </div>
 
-        {/* Nav */}
-        <nav className="flex-1 overflow-y-auto px-3 py-3 space-y-0.5">
-          {navItems.map(item => (
-            <NavItem key={item.label} item={item} currentPath={currentPath} />
-          ))}
+        {/* Scrollable Nav Area */}
+        <nav className="flex-1 overflow-y-auto px-3 py-3 space-y-1.5 no-scrollbar">
+
+          {/* Super Admin Dedicated Menu */}
+          {isSuperAdmin && !is_super_admin_viewing_other ? (
+            <div className="space-y-2">
+              <div className="text-[11px] font-bold text-amber-900 uppercase tracking-wider px-3 py-1 bg-amber-50 rounded-lg flex items-center justify-between">
+                <span>Super Admin Portal</span>
+                <ShieldCheck size={14} className="text-amber-700" />
+              </div>
+
+              <div className="space-y-1 pt-1">
+                <Link
+                  href="/super-admin/owners"
+                  className={`flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold transition ${
+                    currentPath === '/super-admin/owners'
+                      ? 'bg-amber-600 text-white shadow-sm'
+                      : 'text-gray-700 hover:bg-amber-50 hover:text-amber-950'
+                  }`}
+                >
+                  <Building2 size={18} className={currentPath === '/super-admin/owners' ? 'text-white' : 'text-amber-600'} />
+                  <div className="flex-1">
+                    <p className="leading-tight">Business Owners</p>
+                    <p className={`text-[10px] ${currentPath === '/super-admin/owners' ? 'text-amber-100' : 'text-gray-400'}`}>
+                      Workspaces & Accounts
+                    </p>
+                  </div>
+                </Link>
+
+                <Link
+                  href="/super-admin/demo-logs"
+                  className={`flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold transition ${
+                    currentPath === '/super-admin/demo-logs'
+                      ? 'bg-indigo-600 text-white shadow-sm'
+                      : 'text-gray-700 hover:bg-indigo-50 hover:text-indigo-950'
+                  }`}
+                >
+                  <Sparkles size={18} className={currentPath === '/super-admin/demo-logs' ? 'text-white' : 'text-indigo-600'} />
+                  <div className="flex-1">
+                    <p className="leading-tight">Demo Users & Logs</p>
+                    <p className={`text-[10px] ${currentPath === '/super-admin/demo-logs' ? 'text-indigo-100' : 'text-gray-400'}`}>
+                      demouser_1, 2... & Clicks
+                    </p>
+                  </div>
+                </Link>
+              </div>
+            </div>
+          ) : (
+            <>
+              {/* If Super Admin is inspecting a client workspace, show quick link back to Admin Portal */}
+              {is_super_admin_viewing_other && (
+                <div className="mb-2 p-2 rounded-xl bg-amber-50 border border-amber-200">
+                  <button
+                    onClick={handleResetWorkspace}
+                    className="w-full flex items-center justify-center gap-1.5 py-1.5 px-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg text-xs font-semibold shadow-2xs transition"
+                  >
+                    <ArrowLeftRight size={13} />
+                    <span>Return to Super Admin</span>
+                  </button>
+                </div>
+              )}
+
+              {/* Standard HRM Modules */}
+              <div className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider px-3 mb-1">
+                HR Modules
+              </div>
+
+              {filteredNavItems.map(item => (
+                <NavItem key={item.label} item={item} currentPath={currentPath} />
+              ))}
+            </>
+          )}
         </nav>
 
-        {/* User */}
-        <div className="border-t border-gray-100 p-3">
-          <div className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-gray-50 cursor-pointer" onClick={() => setUserMenuOpen(o => !o)}>
-            <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-blue-700 font-semibold text-sm">
+        {/* User Footer Profile */}
+        <div className="border-t border-gray-100 p-3 bg-gray-50/50">
+          <div
+            className="flex items-center gap-3 px-2 py-2 rounded-xl hover:bg-white hover:shadow-xs border border-transparent hover:border-gray-200 cursor-pointer transition"
+            onClick={() => setUserMenuOpen(o => !o)}
+          >
+            <div className={`w-8 h-8 rounded-full flex items-center justify-center font-semibold text-sm ${
+              isSuperAdmin ? 'bg-amber-100 text-amber-800' : isDemo ? 'bg-emerald-100 text-emerald-800' : 'bg-blue-100 text-blue-700'
+            }`}>
               {auth.user?.name?.[0]?.toUpperCase()}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-gray-900 truncate">{auth.user?.name}</p>
-              <p className="text-xs text-gray-400 truncate capitalize">{auth.user?.role?.replace('_', ' ')}</p>
+              <p className="text-sm font-semibold text-gray-900 truncate leading-tight">{auth.user?.name}</p>
+              <p className="text-xs text-gray-400 truncate capitalize leading-tight">
+                {isSuperAdmin ? 'Super Administrator' : isDemo ? 'Demo User' : auth.user?.role?.replace('_', ' ')}
+              </p>
             </div>
             {userMenuOpen ? <ChevronUp size={14} className="text-gray-400" /> : <ChevronDown size={14} className="text-gray-400" />}
           </div>
+
           {userMenuOpen && (
-            <div className="mt-1 space-y-0.5">
-              <button onClick={handleLogout} className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-red-600 hover:bg-red-50">
+            <div className="mt-2 space-y-1 bg-white p-1 rounded-xl border border-gray-100 shadow-sm">
+              <button
+                onClick={handleLogout}
+                className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-red-600 hover:bg-red-50 transition cursor-pointer"
+              >
                 <LogOut size={15} /> Sign out
               </button>
             </div>
@@ -198,7 +314,7 @@ export default function AppLayout({ children, title }) {
   );
 
   return (
-    <div className="flex h-screen bg-white overflow-hidden">
+    <div className="flex h-screen bg-slate-50 overflow-hidden">
       {/* Desktop sidebar */}
       <div className="hidden lg:flex lg:flex-shrink-0">
         <Sidebar />
@@ -207,54 +323,108 @@ export default function AppLayout({ children, title }) {
       {/* Mobile sidebar */}
       {mobileOpen && <Sidebar mobile />}
 
-      {/* Main content */}
-      <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Top bar */}
+      {/* Main content wrapper */}
+      <div className="flex-1 flex flex-col overflow-hidden min-w-0">
+
+        {/* Inspection Mode Alert Banner for Super Admin */}
+        {is_super_admin_viewing_other && (
+          <div className="bg-amber-600 text-white px-4 py-2 text-xs font-medium flex items-center justify-between shadow-sm z-20">
+            <div className="flex items-center gap-2">
+              <AlertCircle size={15} />
+              <span>
+                Super Admin Inspection Mode: You are viewing <strong>{current_workspace?.name}</strong>'s workspace.
+              </span>
+            </div>
+            <button
+              onClick={handleResetWorkspace}
+              className="px-2.5 py-1 rounded bg-amber-800 hover:bg-amber-900 text-white font-semibold text-xs flex items-center gap-1.5 transition cursor-pointer"
+            >
+              <ArrowLeftRight size={13} />
+              Exit Inspection Mode
+            </button>
+          </div>
+        )}
+
+        {/* Demo Mode Notice */}
+        {isDemo && (
+          <div className="bg-emerald-600 text-white px-4 py-1.5 text-xs font-medium flex items-center justify-between z-20 shadow-xs">
+            <div className="flex items-center gap-1.5">
+              <Sparkles size={14} />
+              <span>Live Interactive Demo Session · All 13 modules pre-loaded with sample records.</span>
+            </div>
+            <button
+              onClick={handleLogout}
+              className="text-white hover:underline text-xs font-semibold cursor-pointer"
+            >
+              Exit Demo
+            </button>
+          </div>
+        )}
+
+        {/* Top Navbar */}
         <header className="bg-white border-b border-gray-200 px-4 lg:px-6 py-3 flex items-center gap-4 flex-shrink-0">
-          <button onClick={() => setMobileOpen(true)} className="lg:hidden text-gray-500 hover:text-gray-700">
+          <button
+            onClick={() => setMobileOpen(true)}
+            className="lg:hidden text-gray-500 hover:text-gray-700 p-1 rounded-lg"
+          >
             <Menu size={22} />
           </button>
 
           {/* Page title */}
-          <h1 className="text-base font-semibold text-gray-900 hidden sm:block">{title}</h1>
+          <div>
+            <h1 className="text-base font-bold text-gray-900 leading-tight">{title}</h1>
+            <p className="text-xs text-gray-400 hidden sm:block">
+              {isSuperAdmin && !is_super_admin_viewing_other ? 'Super Admin Portal' : (current_workspace?.name ?? 'PeopleFlow System')}
+            </p>
+          </div>
 
           <div className="flex-1" />
 
           {/* Search */}
           <div className="relative hidden md:block">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
             <input
               type="text"
               placeholder="Search..."
-              className="pl-9 pr-4 py-1.5 text-sm bg-gray-100 rounded-lg border-0 focus:ring-2 focus:ring-blue-500 focus:bg-white transition w-52"
+              className="pl-9 pr-4 py-1.5 text-xs bg-gray-100 rounded-lg border-0 focus:ring-2 focus:ring-blue-500 focus:bg-white transition w-52 text-gray-800"
             />
           </div>
 
+          {/* Role badge */}
+          {isSuperAdmin && (
+            <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold bg-amber-50 border border-amber-200 text-amber-800">
+              <ShieldCheck size={14} />
+              Super Admin
+            </span>
+          )}
+
           {/* Notifications */}
-          <button className="relative p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg">
-            <Bell size={20} />
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full" />
+          <button className="relative p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-xl transition">
+            <Bell size={18} />
+            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-blue-600 rounded-full" />
           </button>
 
           {/* Avatar */}
-          <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-blue-700 font-semibold text-sm cursor-pointer">
+          <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${
+            isSuperAdmin ? 'bg-amber-100 text-amber-800' : 'bg-blue-100 text-blue-700'
+          }`}>
             {auth.user?.name?.[0]?.toUpperCase()}
           </div>
         </header>
 
-        {/* Flash messages */}
+        {/* Flash Notifications */}
         {flash?.success && (
-          <div className="mx-4 lg:mx-6 mt-4 px-4 py-3 bg-green-50 border border-green-200 text-green-800 text-sm rounded-lg flex items-center justify-between">
+          <div className="mx-4 lg:mx-6 mt-4 px-4 py-3 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-medium rounded-xl flex items-center gap-2 shadow-xs">
             <span>✓ {flash.success}</span>
           </div>
         )}
         {flash?.error && (
-          <div className="mx-4 lg:mx-6 mt-4 px-4 py-3 bg-red-50 border border-red-200 text-red-800 text-sm rounded-lg">
-            {flash.error}
+          <div className="mx-4 lg:mx-6 mt-4 px-4 py-3 bg-red-50 border border-red-200 text-red-800 text-xs font-medium rounded-xl shadow-xs">
+            ✕ {flash.error}
           </div>
         )}
 
-        {/* Page content */}
+        {/* Page Body */}
         <main className="flex-1 overflow-y-auto p-4 lg:p-6">
           {children}
         </main>

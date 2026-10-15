@@ -12,7 +12,6 @@ use Inertia\Response;
 
 class AssetController extends Controller
 {
-    private function companyId(): int { return Auth::user()->company_id; }
 
     public function index(Request $request): Response
     {

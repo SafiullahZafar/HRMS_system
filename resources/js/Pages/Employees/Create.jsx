@@ -109,7 +109,7 @@ export default function CreateEmployee({ departments, designations, branches, sh
         {/* Actions */}
         <div className="flex items-center justify-end gap-3 pt-2">
           <Link href="/employees"><Button variant="secondary" type="button">Cancel</Button></Link>
-          <Button variant="secondary" type="button">Save Draft</Button>
+          <Button variant="secondary" type="button" disabled title="Draft saving is not available yet">Save Draft</Button>
           <Button type="submit" disabled={processing}>
             <Save size={15}/> {processing ? 'Creating…' : 'Create Employee'}
           </Button>

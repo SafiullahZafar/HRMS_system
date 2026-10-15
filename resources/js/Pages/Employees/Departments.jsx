@@ -25,8 +25,8 @@ export default function Departments({ departments, branches, managers }) {
             <div className="flex items-start justify-between mb-3">
               <div className="p-2.5 bg-blue-50 rounded-xl"><Building2 size={20} className="text-blue-600"/></div>
               <div className="flex gap-1">
-                <button className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg"><Edit size={14}/></button>
-                <button className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg"><Trash2 size={14}/></button>
+                <button type="button" disabled title="Editing departments is not available here" className="p-1.5 text-gray-400 rounded-lg disabled:cursor-not-allowed disabled:opacity-50"><Edit size={14}/></button>
+                <button type="button" disabled title="Deleting departments is not available here" className="p-1.5 text-gray-400 rounded-lg disabled:cursor-not-allowed disabled:opacity-50"><Trash2 size={14}/></button>
               </div>
             </div>
             <h3 className="font-semibold text-gray-900">{dept.name}</h3>

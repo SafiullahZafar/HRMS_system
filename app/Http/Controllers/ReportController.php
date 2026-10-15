@@ -13,7 +13,6 @@ use Inertia\Response;
 
 class ReportController extends Controller
 {
-    private function companyId(): int { return Auth::user()->company_id; }
 
     public function index(): Response
     {

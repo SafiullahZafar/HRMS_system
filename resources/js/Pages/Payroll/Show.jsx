@@ -17,7 +17,7 @@ export default function PayrollShow({ payrollRun }) {
         {['calculated','under_review'].includes(payrollRun.status) && (
           <Button onClick={approve}><Check size={15}/> Approve Payroll</Button>
         )}
-        <Button variant="secondary"><Download size={15}/> Export</Button>
+        <Button variant="secondary" disabled title="Export is not available yet"><Download size={15}/> Export</Button>
       </div>
 
       {/* Summary Cards */}
@@ -58,8 +58,8 @@ export default function PayrollShow({ payrollRun }) {
                 <Td className="font-bold text-blue-700">Rs. {Number(item.net_salary).toLocaleString()}</Td>
                 <Td>
                   <div className="flex gap-1">
-                    <button className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg"><Download size={13}/></button>
-                    <button className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg"><Mail size={13}/></button>
+                    <button type="button" disabled title="Payslip download is not available yet" className="p-1.5 text-gray-400 rounded-lg disabled:cursor-not-allowed disabled:opacity-50"><Download size={13}/></button>
+                    <button type="button" disabled title="Payslip email is not available yet" className="p-1.5 text-gray-400 rounded-lg disabled:cursor-not-allowed disabled:opacity-50"><Mail size={13}/></button>
                   </div>
                 </Td>
               </Tr>

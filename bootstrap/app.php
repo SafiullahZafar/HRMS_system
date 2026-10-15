@@ -14,6 +14,12 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->web(append: [
             \App\Http\Middleware\HandleInertiaRequests::class,
+            \App\Http\Middleware\TrackDemoActivity::class,
+        ]);
+
+        $middleware->alias([
+            'super-admin'   => \App\Http\Middleware\RequireSuperAdmin::class,
+            'module-access' => \App\Http\Middleware\CheckModuleAccess::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

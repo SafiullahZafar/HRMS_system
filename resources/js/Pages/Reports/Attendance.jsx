@@ -24,7 +24,7 @@ export default function AttendanceReport({ report, month, year }) {
         </select>
         <input type="number" value={y} onChange={e=>setY(e.target.value)} className="w-24 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"/>
         <Button size="sm" onClick={apply}>Apply</Button>
-        <Button size="sm" variant="secondary"><Download size={14}/> Export</Button>
+        <Button size="sm" variant="secondary" disabled title="Export is not available yet"><Download size={14}/> Export</Button>
       </div>
       <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
         <Table>

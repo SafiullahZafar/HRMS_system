@@ -13,7 +13,6 @@ use Inertia\Response;
 
 class OffboardingController extends Controller
 {
-    private function companyId(): int { return Auth::user()->company_id; }
 
     public function index(): Response
     {

@@ -15,7 +15,6 @@ use Inertia\Response;
 
 class PayrollController extends Controller
 {
-    private function companyId(): int { return Auth::user()->company_id; }
 
     public function index(): Response
     {

@@ -20,7 +20,7 @@ export default function SettingsIndex({ company }) {
         <div className="lg:col-span-1">
           <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-3 space-y-1">
             {['Company','HR Policy','Attendance','Leave','Payroll','Notifications','Roles & Permissions'].map((item,i) => (
-              <button key={item} className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition ${i===0?'bg-blue-600 text-white font-medium':'text-gray-600 hover:bg-gray-100'}`}>
+              <button key={item} type="button" disabled title={i === 0 ? 'Company settings are currently open' : `${item} settings are not available yet`} aria-current={i === 0 ? 'page' : undefined} className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition cursor-not-allowed disabled:cursor-not-allowed ${i===0?'bg-blue-600 text-white font-medium':'text-gray-400 opacity-60'}`}>
                 {item}
               </button>
             ))}

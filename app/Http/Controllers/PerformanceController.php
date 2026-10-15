@@ -16,7 +16,6 @@ use Inertia\Response;
 
 class PerformanceController extends Controller
 {
-    private function companyId(): int { return Auth::user()->company_id; }
 
     public function index(): Response
     {

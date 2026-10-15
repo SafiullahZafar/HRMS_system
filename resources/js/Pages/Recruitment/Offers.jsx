@@ -32,8 +32,8 @@ export default function Offers({ offers, candidates }) {
                 <Td>{o.offer_expiry ? new Date(o.offer_expiry).toLocaleDateString() : '—'}</Td>
                 <Td><Badge status={o.status}/></Td>
                 <Td><div className="flex gap-1">
-                  <button className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg"><Download size={13}/></button>
-                  <button className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg"><Mail size={13}/></button>
+                  <button type="button" disabled title="Offer download is not available yet" className="p-1.5 text-gray-400 rounded-lg disabled:cursor-not-allowed disabled:opacity-50"><Download size={13}/></button>
+                  <button type="button" disabled title="Offer email is not available yet" className="p-1.5 text-gray-400 rounded-lg disabled:cursor-not-allowed disabled:opacity-50"><Mail size={13}/></button>
                 </div></Td>
               </Tr>
             ))}

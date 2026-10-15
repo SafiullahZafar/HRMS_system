@@ -8,13 +8,13 @@ use App\Models\Employee;
 use App\Models\Shift;
 use App\Models\ShiftAssignment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class AttendanceController extends Controller
 {
-    private function companyId(): int { return Auth::user()->company_id; }
 
     public function index(Request $request): Response
     {
@@ -72,6 +72,49 @@ class AttendanceController extends Controller
         );
 
         return back()->with('success', 'Attendance marked.');
+    }
+
+    public function bulkUpdate(Request $request)
+    {
+        $data = $request->validate([
+            'employee_ids' => 'required|array|min:1',
+            'employee_ids.*' => 'required|integer|distinct|exists:employees,id',
+            'date' => 'required|date',
+            'status' => 'required|in:present,absent,late,half_day,leave,work_from_home',
+            'check_in' => 'nullable|date_format:H:i',
+            'check_out' => 'nullable|date_format:H:i',
+            'notes' => 'nullable|string',
+        ]);
+
+        $employees = Employee::where('company_id', $this->companyId())
+            ->where('status', 'active')
+            ->whereIn('id', $data['employee_ids'])
+            ->get(['id']);
+
+        if ($employees->count() !== count($data['employee_ids'])) {
+            throw \Illuminate\Validation\ValidationException::withMessages([
+                'employee_ids' => 'Select active employees from your company.',
+            ]);
+        }
+
+        $attributes = [
+            'status' => $data['status'],
+            'check_in' => $data['status'] === 'absent' ? null : ($data['check_in'] ?? null),
+            'check_out' => $data['status'] === 'absent' ? null : ($data['check_out'] ?? null),
+            'notes' => $data['notes'] ?? null,
+            'approved_by' => Auth::id(),
+        ];
+
+        DB::transaction(function () use ($employees, $data, $attributes) {
+            foreach ($employees as $employee) {
+                Attendance::updateOrCreate(
+                    ['employee_id' => $employee->id, 'date' => $data['date']],
+                    $attributes
+                );
+            }
+        });
+
+        return back()->with('success', 'Attendance updated for the selected employees.');
     }
 
     public function update(Request $request, Attendance $attendance)
