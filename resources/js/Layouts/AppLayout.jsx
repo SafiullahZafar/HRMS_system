@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, usePage, router } from '@inertiajs/react';
 import {
   LayoutDashboard, Users, Clock, Calendar, DollarSign, Briefcase,
@@ -98,7 +98,7 @@ function NavItem({ item, currentPath }) {
 
   if (item.children) {
     return (
-      <div>
+      <div data-tour={`nav-${item.moduleKey}`}>
         <button
           onClick={() => setOpen(o => !o)}
           className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
@@ -133,6 +133,7 @@ function NavItem({ item, currentPath }) {
   return (
     <Link
       href={item.href}
+      data-tour={`nav-${item.moduleKey}`}
       className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
         isActive(item.href)
           ? 'bg-blue-600 text-white font-semibold shadow-sm'
@@ -145,12 +146,101 @@ function NavItem({ item, currentPath }) {
   );
 }
 
+function GuidedTour({ open, steps, stepIndex, onNext, onBack, onCancel }) {
+  const [targetRect, setTargetRect] = useState(null);
+  const [cardPosition, setCardPosition] = useState(null);
+  const cardRef = useRef(null);
+  const step = steps[stepIndex];
+
+  useEffect(() => {
+    if (!open || !step?.target) {
+      setTargetRect(null);
+      return undefined;
+    }
+
+    const target = document.querySelector(`[data-tour="${step.target}"]`);
+    if (!target) {
+      setTargetRect(null);
+      return undefined;
+    }
+
+    target.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+    const updateRect = () => {
+      const rect = target.getBoundingClientRect();
+      setTargetRect({ top: rect.top, left: rect.left, width: rect.width, height: rect.height });
+    };
+    const timer = window.setTimeout(updateRect, 250);
+    window.addEventListener('resize', updateRect);
+    window.addEventListener('scroll', updateRect, true);
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener('resize', updateRect);
+      window.removeEventListener('scroll', updateRect, true);
+    };
+  }, [open, step]);
+
+  useEffect(() => {
+    if (!open) return;
+    const margin = 16;
+    const card = cardRef.current?.getBoundingClientRect();
+    const width = card?.width ?? Math.min(400, window.innerWidth - margin * 2);
+    const height = card?.height ?? 240;
+    if (!targetRect) {
+      setCardPosition({ left: Math.max(margin, (window.innerWidth - width) / 2), top: Math.max(margin, (window.innerHeight - height) / 2) });
+      return;
+    }
+
+    const gap = 18;
+    const fitsRight = window.innerWidth - targetRect.left - targetRect.width - gap >= width + margin;
+    const fitsLeft = targetRect.left - gap >= width + margin;
+    let left = fitsRight
+      ? targetRect.left + targetRect.width + gap
+      : fitsLeft
+        ? targetRect.left - width - gap
+        : targetRect.left + targetRect.width / 2 - width / 2;
+    let top = targetRect.top + targetRect.height / 2 - height / 2;
+
+    if (left < margin || left + width > window.innerWidth - margin) {
+      left = Math.max(margin, Math.min(window.innerWidth - width - margin, left));
+      const below = targetRect.top + targetRect.height + gap;
+      const above = targetRect.top - height - gap;
+      if (below + height <= window.innerHeight - margin) top = below;
+      else if (above >= margin) top = above;
+    }
+
+    setCardPosition({ left, top: Math.max(margin, Math.min(window.innerHeight - height - margin, top)) });
+  }, [open, targetRect, step]);
+
+  if (!open || !step) return null;
+
+  return (
+    <div className="fixed inset-0 z-[100]" role="dialog" aria-modal="true" aria-labelledby="tour-title">
+      <div className="absolute inset-0 bg-slate-950/60" />
+      {targetRect && <div className="fixed rounded-xl border-2 border-cyan-300 bg-blue-400/10 ring-4 ring-cyan-300/80 shadow-[0_0_0_9999px_rgba(15,23,42,0.72),0_0_30px_8px_rgba(34,211,238,0.65)] transition-all duration-200 pointer-events-none" style={{ top: targetRect.top - 6, left: targetRect.left - 6, width: targetRect.width + 12, height: targetRect.height + 12 }}><span className="absolute -top-3 -right-3 h-5 w-5 rounded-full border-2 border-white bg-cyan-400 shadow-lg shadow-cyan-500/50" /></div>}
+      <section ref={cardRef} className="fixed left-4 top-4 w-[min(25rem,calc(100vw-2rem))] max-h-[calc(100vh-2rem)] overflow-y-auto rounded-2xl border border-blue-100 bg-white p-5 shadow-[0_20px_70px_rgba(2,6,23,0.38)] ring-1 ring-blue-500/15 transition-[top,left] duration-200" style={cardPosition ? { left: cardPosition.left, top: cardPosition.top } : undefined}>
+        <div className="mb-2 flex items-center justify-between gap-3">
+          <p className="text-xs font-semibold uppercase tracking-wide text-blue-600">PeopleFlow tour · {stepIndex + 1} of {steps.length}</p>
+          <button type="button" onClick={onCancel} className="rounded-md px-2 py-1 text-sm text-gray-500 hover:bg-gray-100">Cancel</button>
+        </div>
+        <h2 id="tour-title" className="text-lg font-bold text-gray-900">{step.title}</h2>
+        <p className="mt-2 text-sm leading-6 text-gray-600">{step.description}</p>
+        <div className="mt-5 flex items-center justify-between gap-3">
+          <button type="button" onClick={onBack} disabled={stepIndex === 0} className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40">Back</button>
+          <button type="button" onClick={onNext} className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700">{stepIndex === steps.length - 1 ? 'Finish' : 'Next'}</button>
+        </div>
+      </section>
+    </div>
+  );
+}
+
 export default function AppLayout({ children, title }) {
   const { auth, flash, current_workspace, is_super_admin_viewing_other } = usePage().props;
   const { url } = usePage();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [superAdminMenuOpen, setSuperAdminMenuOpen] = useState(true);
+  const [tourOpen, setTourOpen] = useState(false);
+  const [tourStep, setTourStep] = useState(0);
 
   const currentPath = url.split('?')[0];
 
@@ -162,13 +252,66 @@ export default function AppLayout({ children, title }) {
   const isSuperAdmin = Boolean(auth.user?.is_super_admin);
   const isDemo = Boolean(auth.user?.is_demo);
 
-  const filteredNavItems = baseNavItems.filter(item => {
+  const filteredNavItems = useMemo(() => baseNavItems.filter(item => {
     if (isSuperAdmin) return true;
     if (allowedModules.includes('*')) return true;
     return allowedModules.includes(item.moduleKey);
-  });
+  }), [isSuperAdmin, allowedModules]);
 
   const isSuperAdminActive = currentPath.startsWith('/super-admin');
+
+  const tourSteps = useMemo(() => [
+    { title: 'Welcome to PeopleFlow', description: 'Take a quick tour of the workspace navigation and the controls available on every page.' },
+    ...filteredNavItems.map(item => ({
+      target: `nav-${item.moduleKey}`,
+      title: item.label,
+      description: item.children?.length
+        ? `Open ${item.label} in the sidebar to visit ${item.children.map(child => child.label).join(', ')}.`
+        : `Use ${item.label} to open this area of your workspace.`,
+    })),
+    { target: 'topbar-search', title: 'Search', description: 'Find people and records from the top bar.' },
+    { target: 'topbar-notifications', title: 'Notifications', description: 'Check this area for updates and alerts.' },
+    { target: 'topbar-profile', title: 'Your account', description: 'Your profile badge identifies the current account. Sign out from the profile menu in the sidebar.' },
+    { target: 'page-content', title: 'Page actions and content', description: `This is the ${title} page. Scroll here to see its content and use the available page buttons and forms.` },
+  ], [filteredNavItems, title]);
+
+  useEffect(() => {
+    try {
+      if (!window.localStorage.getItem('peopleflow-tour-seen')) {
+        const timer = window.setTimeout(() => {
+          if (window.innerWidth < 1024) setMobileOpen(true);
+          setTourOpen(true);
+        }, 500);
+        return () => window.clearTimeout(timer);
+      }
+    } catch {
+      // Keep the tour available through the top bar when browser storage is disabled.
+    }
+  }, []);
+
+  const markTourSeen = () => {
+    try { window.localStorage.setItem('peopleflow-tour-seen', '1'); } catch { /* Storage may be disabled. */ }
+  };
+  const startTour = () => {
+    markTourSeen();
+    if (window.innerWidth < 1024) setMobileOpen(true);
+    setTourStep(0);
+    setTourOpen(true);
+  };
+  const cancelTour = () => {
+    markTourSeen();
+    setTourOpen(false);
+    if (window.innerWidth < 1024) setMobileOpen(false);
+  };
+  const advanceTour = () => {
+    if (tourStep >= tourSteps.length - 1) {
+      markTourSeen();
+      setTourOpen(false);
+      if (window.innerWidth < 1024) setMobileOpen(false);
+      return;
+    }
+    setTourStep(index => index + 1);
+  };
 
   const Sidebar = ({ mobile = false }) => (
     <aside className={`${mobile ? 'fixed inset-0 z-50 flex' : 'flex-shrink-0'}`}>
@@ -381,7 +524,7 @@ export default function AppLayout({ children, title }) {
           <div className="flex-1" />
 
           {/* Search */}
-          <div className="relative hidden md:block">
+          <div data-tour="topbar-search" className="relative hidden md:block">
             <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
             <input
               type="text"
@@ -398,14 +541,16 @@ export default function AppLayout({ children, title }) {
             </span>
           )}
 
+          <button type="button" onClick={startTour} className="rounded-lg border border-blue-200 bg-blue-50 px-3 py-2 text-xs font-semibold text-blue-700 hover:bg-blue-100">Take Tour</button>
+
           {/* Notifications */}
-          <button className="relative p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-xl transition">
+          <button data-tour="topbar-notifications" type="button" aria-label="Notifications" className="relative p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-xl transition">
             <Bell size={18} />
             <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-blue-600 rounded-full" />
           </button>
 
           {/* Avatar */}
-          <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${
+          <div data-tour="topbar-profile" className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${
             isSuperAdmin ? 'bg-amber-100 text-amber-800' : 'bg-blue-100 text-blue-700'
           }`}>
             {auth.user?.name?.[0]?.toUpperCase()}
@@ -425,10 +570,11 @@ export default function AppLayout({ children, title }) {
         )}
 
         {/* Page Body */}
-        <main className="flex-1 overflow-y-auto p-4 lg:p-6">
+        <main data-tour="page-content" className="flex-1 overflow-y-auto p-4 lg:p-6">
           {children}
         </main>
       </div>
+      <GuidedTour open={tourOpen} steps={tourSteps} stepIndex={tourStep} onNext={advanceTour} onBack={() => setTourStep(index => Math.max(0, index - 1))} onCancel={cancelTour} />
     </div>
   );
 }
