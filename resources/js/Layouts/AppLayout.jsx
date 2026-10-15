@@ -215,9 +215,9 @@ function GuidedTour({ open, steps, stepIndex, onNext, onBack, onCancel }) {
 
   return (
     <div className="fixed inset-0 z-[100]" role="dialog" aria-modal="true" aria-labelledby="tour-title">
-      <div className="absolute inset-0 bg-slate-950/60" />
+      <div className={`absolute inset-0 ${targetRect ? 'bg-transparent' : 'bg-slate-950/55'}`} />
       {targetRect && <div className="fixed rounded-xl border-2 border-cyan-300 bg-blue-400/10 ring-4 ring-cyan-300/80 shadow-[0_0_0_9999px_rgba(15,23,42,0.72),0_0_30px_8px_rgba(34,211,238,0.65)] transition-all duration-200 pointer-events-none" style={{ top: targetRect.top - 6, left: targetRect.left - 6, width: targetRect.width + 12, height: targetRect.height + 12 }}><span className="absolute -top-3 -right-3 h-5 w-5 rounded-full border-2 border-white bg-cyan-400 shadow-lg shadow-cyan-500/50" /></div>}
-      <section ref={cardRef} className="fixed left-4 top-4 w-[min(25rem,calc(100vw-2rem))] max-h-[calc(100vh-2rem)] overflow-y-auto rounded-2xl border border-blue-100 bg-white p-5 shadow-[0_20px_70px_rgba(2,6,23,0.38)] ring-1 ring-blue-500/15 transition-[top,left] duration-200" style={cardPosition ? { left: cardPosition.left, top: cardPosition.top } : undefined}>
+      <section ref={cardRef} className="fixed left-4 top-4 w-[min(25rem,calc(100vw-2rem))] max-h-[calc(100vh-2rem)] overflow-y-auto rounded-2xl border-2 border-blue-200 bg-white p-5 shadow-[0_24px_80px_rgba(2,6,23,0.5)] ring-4 ring-blue-500/15 transition-[top,left] duration-200" style={cardPosition ? { left: cardPosition.left, top: cardPosition.top } : undefined}>
         <div className="mb-2 flex items-center justify-between gap-3">
           <p className="text-xs font-semibold uppercase tracking-wide text-blue-600">PeopleFlow tour · {stepIndex + 1} of {steps.length}</p>
           <button type="button" onClick={onCancel} className="rounded-md px-2 py-1 text-sm text-gray-500 hover:bg-gray-100">Cancel</button>
@@ -241,8 +241,24 @@ export default function AppLayout({ children, title }) {
   const [superAdminMenuOpen, setSuperAdminMenuOpen] = useState(true);
   const [tourOpen, setTourOpen] = useState(false);
   const [tourStep, setTourStep] = useState(0);
+  const [pageActionLabel, setPageActionLabel] = useState('the primary action');
 
   const currentPath = url.split('?')[0];
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      const actions = [...document.querySelectorAll('main button:not(:disabled), main a[href], main input:not(:disabled), main select:not(:disabled)')];
+      const firstAction = actions.find(element => element.getClientRects().length > 0);
+      if (!firstAction) {
+        setPageActionLabel('the page content');
+        return;
+      }
+      firstAction.setAttribute('data-tour', 'page-action');
+      const label = (firstAction.getAttribute('aria-label') || firstAction.getAttribute('title') || firstAction.textContent || firstAction.getAttribute('placeholder') || '').trim().replace(/\s+/g, ' ');
+      setPageActionLabel(label ? `“${label.slice(0, 70)}”` : 'the primary action');
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [currentPath, title]);
 
   const handleLogout = () => router.post('/logout');
   const handleResetWorkspace = () => router.post('/super-admin/reset-workspace');
@@ -272,8 +288,8 @@ export default function AppLayout({ children, title }) {
     { target: 'topbar-search', title: 'Search', description: 'Find people and records from the top bar.' },
     { target: 'topbar-notifications', title: 'Notifications', description: 'Check this area for updates and alerts.' },
     { target: 'topbar-profile', title: 'Your account', description: 'Your profile badge identifies the current account. Sign out from the profile menu in the sidebar.' },
-    { target: 'page-content', title: 'Page actions and content', description: `This is the ${title} page. Scroll here to see its content and use the available page buttons and forms.` },
-  ], [filteredNavItems, title]);
+    { target: 'page-action', title: `${title} page action`, description: `This page’s first available action is ${pageActionLabel}. Page content below can be scrolled normally.` },
+  ], [filteredNavItems, pageActionLabel, title]);
 
   useEffect(() => {
     try {
@@ -515,7 +531,7 @@ export default function AppLayout({ children, title }) {
 
           {/* Page title */}
           <div>
-            <h1 className="text-base font-bold text-gray-900 leading-tight">{title}</h1>
+            <h1 data-tour="page-title" className="text-base font-bold text-gray-900 leading-tight">{title}</h1>
             <p className="text-xs text-gray-400 hidden sm:block">
               {isSuperAdmin && !is_super_admin_viewing_other ? 'Super Admin Portal' : (current_workspace?.name ?? 'PeopleFlow System')}
             </p>
@@ -570,7 +586,7 @@ export default function AppLayout({ children, title }) {
         )}
 
         {/* Page Body */}
-        <main data-tour="page-content" className="flex-1 overflow-y-auto p-4 lg:p-6">
+        <main className="flex-1 overflow-y-auto p-4 lg:p-6">
           {children}
         </main>
       </div>
