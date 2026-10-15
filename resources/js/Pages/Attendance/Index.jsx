@@ -36,7 +36,11 @@ export default function AttendanceIndex({ daily, summary, date, departments }) {
     ? []
     : daily.map(({ employee }) => employee.id));
   const openBulkUpdate = () => {
-    bulkForm.setData({ employee_ids: selectedEmployees, date: currentDate, status: 'present', check_in: '09:00', check_out: '18:00', notes: '' });
+    const employeeIds = selectedEmployees.length > 0
+      ? selectedEmployees
+      : daily.map(({ employee }) => employee.id);
+    setSelectedEmployees(employeeIds);
+    bulkForm.setData({ employee_ids: employeeIds, date: currentDate, status: 'present', check_in: '09:00', check_out: '18:00', notes: '' });
     setBulkModal(true);
   };
   const submitBulkUpdate = (e) => {
@@ -83,7 +87,7 @@ export default function AttendanceIndex({ daily, summary, date, departments }) {
             <input type="checkbox" aria-label="Select all employees" checked={daily.length > 0 && selectedEmployees.length === daily.length} onChange={toggleAllEmployees} className="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
             <p className="text-sm font-medium text-gray-700">{daily.length} employees</p>
           </div>
-          <Button size="sm" variant="secondary" onClick={openBulkUpdate} disabled={selectedEmployees.length === 0}>Bulk Update{selectedEmployees.length > 0 ? ` (${selectedEmployees.length})` : ''}</Button>
+          <Button type="button" size="sm" variant="secondary" onClick={openBulkUpdate} disabled={daily.length === 0}>Bulk Update{selectedEmployees.length > 0 ? ` (${selectedEmployees.length})` : ''}</Button>
         </div>
         <div className="divide-y divide-gray-50">
           {daily.map(({ employee: emp, attendance: att, status }) => (
